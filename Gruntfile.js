@@ -1,5 +1,31 @@
 module.exports = function (grunt) {
 
+    var sassDefaultFiles = [
+        'css/default.scss'
+    ]
+
+    grunt.initConfig({
+        sass: {
+            dev: {
+                options: {
+                    sourcemap: 'auto'
+                },
+                files: {
+                    'build/default.css': 'css/default.scss'
+                }
+            },
+            prod: {
+                options: {
+                    sourcemap: 'none',
+                    style: 'compressed'
+                },
+                files: {
+                    'build/default.css': 'css/default.scss'
+                }
+            }
+        }
+    })
+
 
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -10,7 +36,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default',
         [
-
+            'sass:dev'
         ]
     );
 }
