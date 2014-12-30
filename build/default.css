@@ -2,4 +2,60 @@
   margin: 0;
   padding: 0; }
 
+body {
+  font-family: Geneva, Arial, Helvetica, sans-serif; }
+
+.calendar-label {
+  position: relative;
+  display: inline-block;
+  background: gainsboro;
+  border-radius: 3px;
+  margin: 5px;
+  border: 1px solid gainsboro; }
+  .calendar-label .calendar-label-btn {
+    width: 100px;
+    text-align: center;
+    background: #ffffff;
+    /* Old browsers */
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    /* IE6-9 */ }
+  .calendar-label .calendar-label-ico {
+    width: 30px;
+    height: 100%;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    cursor: pointer;
+    padding: 0;
+    border-left: 1px solid gainsboro;
+    background: #ffffff;
+    /* Old browsers */
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    /* IE6-9 */ }
+    .calendar-label .calendar-label-ico:active {
+      background: #ffffff;
+      box-shadow: inset  0 0 10px gainsboro;
+      -moz-user-select: none;
+      -o-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none; }
+  .calendar-label .ico-calendar {
+    background: url("../img/calendar.png") no-repeat center;
+    padding: 5px 10px;
+    background-size: 70% 70%; }
+  .calendar-label > div {
+    display: inline-block;
+    padding: 5px 10px; }
+  .calendar-label .calendar-view {
+    position: absolute;
+    top: 30px;
+    left: 100px;
+    padding: 10px;
+    box-shadow: 2px 2px 10px gray; }
+
 /*# sourceMappingURL=default.css.map */

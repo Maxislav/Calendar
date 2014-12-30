@@ -1,12 +1,20 @@
 module.exports = function (grunt) {
 
     var sassDefaultFiles = [
-        'css/default.scss'
+        'css/default.scss',
+        'css/calendar.scss'
     ]
     var jsDefaultFiles = [
+        'module/**/**.js',
+        'module/partials/**/**.js',
         'js/_init.js',
-        'js/**/*.js',
+        'src/**/*.js',
         'partials/**/**.js'
+    ]
+
+    var htmlFiles = [
+        'module/partials/**/**.html',
+        'partials/**/**.html'
     ]
 
     grunt.initConfig({
@@ -32,7 +40,7 @@ module.exports = function (grunt) {
         uglify:{
             dev: {
                 options: {
-                    sourceMap: false,
+                    sourceMap: true,
                     mangle: false
                 },
                 files: {
@@ -57,12 +65,29 @@ module.exports = function (grunt) {
                 src: 'partials/**.html',
                 dest: 'partials/template.js'
 
+            },
+            calendarModule: {
+                options: {
+                    htmlmin: { collapseWhitespace: true, collapseBooleanAttributes: true }
+                },
+                src: 'module/partials/**.html',
+                dest: 'module/partials/template.js'
             }
         },
         watch: {
             sassFiles: {
                 files: sassDefaultFiles,
                 tasks: ['sass:dev'],
+                options: {nospawn: true}
+            },
+            jsDefault: {
+                files: jsDefaultFiles,
+                tasks: ['ngtemplates','uglify:dev'],
+                options: {nospawn: true}
+            },
+            htmlFiles: {
+                files:htmlFiles,
+                tasks: ['ngtemplates','uglify:dev'],
                 options: {nospawn: true}
             }
         }
