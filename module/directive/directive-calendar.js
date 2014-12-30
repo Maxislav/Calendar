@@ -6,7 +6,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', function ($c
         replace: true,
         templateUrl: 'module/partials/calendar-label.html',
         scope: {
-
+            before: '=before',
+            after: '=after'
         },
         controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
             var content = null;
@@ -23,6 +24,9 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', function ($c
                 }
                 $scope.show = !$scope.show
             }
+            console.log($scope.before)
+
+
         }]
     }
 }])
