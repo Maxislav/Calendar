@@ -3,6 +3,11 @@ module.exports = function (grunt) {
     var sassDefaultFiles = [
         'css/default.scss'
     ]
+    var jsDefaultFiles = [
+        'js/_init.js',
+        'js/**/*.js',
+        'partials/**/**.js'
+    ]
 
     grunt.initConfig({
         sass: {
@@ -23,6 +28,43 @@ module.exports = function (grunt) {
                     'build/default.css': 'css/default.scss'
                 }
             }
+        },
+        uglify:{
+            dev: {
+                options: {
+                    sourceMap: false,
+                    mangle: false
+                },
+                files: {
+                    'build/default.js': jsDefaultFiles
+                }
+            },
+            prod: {
+                options: {
+                    sourceMap: false,
+                    mangle: true
+                },
+                files: {
+                    'build/default.js': jsDefaultFiles
+                }
+            }
+        },
+        ngtemplates: {
+            app: {
+                options: {
+                    htmlmin: { collapseWhitespace: true, collapseBooleanAttributes: true }
+                },
+                src: 'partials/**.html',
+                dest: 'partials/template.js'
+
+            }
+        },
+        watch: {
+            sassFiles: {
+                files: sassDefaultFiles,
+                tasks: ['sass:dev'],
+                options: {nospawn: true}
+            }
         }
     })
 
@@ -36,7 +78,17 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default',
         [
-            'sass:dev'
+            'sass:dev',
+            'ngtemplates',
+            'uglify:dev',
+            'watch'
+        ]
+    );
+    grunt.registerTask('prod',
+        [
+            'sass:prod',
+            'ngtemplates',
+            'uglify:prod'
         ]
     );
 }
