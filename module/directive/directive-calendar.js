@@ -19,7 +19,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache','constantCale
                 })
             }
         }
-        console.log(array);
+        //console.log(array);
         var fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek-1;
         var fillAfter = 7 - array[array.length-1].dayWeek;
         for(var i = 0; i<fillBefore; i++){
@@ -67,6 +67,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache','constantCale
             var dateBefore = new Date(date.getFullYear(),date.getMonth()-1,1)
             $scope.arrMonthBefore = formatMonth(dateBefore)
             $scope.arrMonthBefore.value = dateBefore.getTime()
+
+            var dateAfter = new Date(date.getFullYear(),date.getMonth()+1,1)
+            $scope.arrMonthAfter = formatMonth(dateAfter)
+            $scope.arrMonthAfter.value = dateAfter.getTime()
 
             function init() {
                 var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
