@@ -51,6 +51,7 @@ $radius: 3px;
 }
 .calendar-label .calendar-view{
   position: absolute;
+  background: #FFF7E6;
   top: 30px;
   left: 100px;
   padding: 0;
@@ -58,8 +59,11 @@ $radius: 3px;
   box-shadow: 2px 2px 10px gray;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 12px;
+  border-radius: 3px;
   .container-months{
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+    background: #ffffff;
   }
   .block-month{
     margin: 5px;
@@ -68,9 +72,38 @@ $radius: 3px;
     min-height: 160px;
     border: 1px solid gainsboro;
     overflow: hidden;
+    .col-day{
+      border-radius: 3px;
+    }
   }
   .info-block{
     padding: 10px;
     text-align: center;
   }
+  .col-day{
+    cursor: pointer;
+
+    padding: 2px;
+  }
+  .red{
+    color: red;
+  }
+  .name-month{
+    font-style: italic;
+    margin-left: 5px;
+  }
+  .numeric{
+    .col-day{
+      &:hover{
+        background: ghostwhite;
+      }
+    }
+    .current{
+      background: rgb(255, 228, 144);
+      &:hover{
+        background: burlywood;
+      }
+    }
+  }
+
 }

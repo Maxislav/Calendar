@@ -6,3 +6,65 @@ body{
   font-family: Geneva, Arial, Helvetica, sans-serif;
 }
 @import "calendar";
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:before, :after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.col-day{
+  width: 14.2%;
+}
+.col-1{
+  width: 8.3%;
+}
+.col-2{
+  width: 16%;
+}
+.col-3{
+  width: 24%;
+}
+.col-4{
+  width: 33%;
+}
+.col-5{
+  width: 41%;
+}
+.col-6{
+  width: 50%;
+}
+.col-7{
+  width: 58%;
+}
+.col-10{
+  width: 82%;
+}
+.col-11{
+  width: 91.6%;
+}
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-10, .col-11, .col-day{
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:last-child{
+    float: none;
+    display: inline-block;
+  }
+}
+
+.row{
+  display: block;
+  width: 100%;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}

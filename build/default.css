@@ -54,15 +54,19 @@ body {
 
 .calendar-label .calendar-view {
   position: absolute;
+  background: #FFF7E6;
   top: 30px;
   left: 100px;
   padding: 0;
   overflow: hidden;
   box-shadow: 2px 2px 10px gray;
   text-overflow: ellipsis;
-  white-space: nowrap; }
+  white-space: nowrap;
+  font-size: 12px;
+  border-radius: 3px; }
   .calendar-label .calendar-view .container-months {
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); }
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    background: #ffffff; }
   .calendar-label .calendar-view .block-month {
     margin: 5px;
     display: inline-block;
@@ -70,8 +74,83 @@ body {
     min-height: 160px;
     border: 1px solid gainsboro;
     overflow: hidden; }
+    .calendar-label .calendar-view .block-month .col-day {
+      border-radius: 3px; }
   .calendar-label .calendar-view .info-block {
     padding: 10px;
     text-align: center; }
+  .calendar-label .calendar-view .col-day {
+    cursor: pointer;
+    padding: 2px; }
+  .calendar-label .calendar-view .red {
+    color: red; }
+  .calendar-label .calendar-view .name-month {
+    font-style: italic;
+    margin-left: 5px; }
+  .calendar-label .calendar-view .numeric .col-day:hover {
+    background: ghostwhite; }
+  .calendar-label .calendar-view .numeric .current {
+    background: #ffe490; }
+    .calendar-label .calendar-view .numeric .current:hover {
+      background: burlywood; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+:before, :after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.col-day {
+  width: 14.2%; }
+
+.col-1 {
+  width: 8.3%; }
+
+.col-2 {
+  width: 16%; }
+
+.col-3 {
+  width: 24%; }
+
+.col-4 {
+  width: 33%; }
+
+.col-5 {
+  width: 41%; }
+
+.col-6 {
+  width: 50%; }
+
+.col-7 {
+  width: 58%; }
+
+.col-10 {
+  width: 82%; }
+
+.col-11 {
+  width: 91.6%; }
+
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-10, .col-11, .col-day {
+  float: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+  .col-1:last-child, .col-2:last-child, .col-3:last-child, .col-4:last-child, .col-5:last-child, .col-6:last-child, .col-7:last-child, .col-10:last-child, .col-11:last-child, .col-day:last-child {
+    float: none;
+    display: inline-block; }
+
+.row {
+  display: block;
+  width: 100%; }
+
+.text-right {
+  text-align: right; }
+
+.text-center {
+  text-align: center; }
 
 /*# sourceMappingURL=default.css.map */

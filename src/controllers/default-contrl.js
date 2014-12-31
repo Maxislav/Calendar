@@ -5,5 +5,4 @@ app.controller('defaultContrl', ['$scope', '$interval',function($scope, $interva
 	$interval(function(){
 		$scope.before = new Date().getTime();
 	},1000)
-
 }])
