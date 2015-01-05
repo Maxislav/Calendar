@@ -59,13 +59,13 @@
   border-radius: 3px; }
   .calendar-label .calendar-view .container-months {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
-    background: #ffffff; }
+    background: #ffffff;
+    padding: 10px 15px; }
   .calendar-label .calendar-view .block-month {
     margin: 5px;
     display: inline-block;
     min-width: 160px;
-    min-height: 160px;
-    overflow: hidden; }
+    min-height: 160px; }
     .calendar-label .calendar-view .block-month .col-day {
       border-radius: 3px; }
   .calendar-label .calendar-view .info-block {
@@ -85,7 +85,25 @@
     background: #ffe490; }
     .calendar-label .calendar-view .numeric .current:hover {
       background: #ffcf78; }
-  .calendar-label .calendar-view .days {
-    border-bottom: 1px solid ghostwhite; }
+  .calendar-label .calendar-view .border-line {
+    border-bottom: 1px solid #E0E0E0;
+    position: relative;
+    overflow: inherit; }
+    .calendar-label .calendar-view .border-line .btn-back, .calendar-label .calendar-view .border-line .btn-forward {
+      position: absolute;
+      top: -18px;
+      font-size: 25px;
+      font-weight: bold;
+      color: gray;
+      padding: 0px 5px;
+      cursor: pointer;
+      border-radius: 3px; }
+      .calendar-label .calendar-view .border-line .btn-back:hover, .calendar-label .calendar-view .border-line .btn-forward:hover {
+        color: black;
+        background: ghostwhite; }
+    .calendar-label .calendar-view .border-line .btn-back {
+      left: -18px; }
+    .calendar-label .calendar-view .border-line .btn-forward {
+      right: -18px; }
 
 /*# sourceMappingURL=calendar.css.map */

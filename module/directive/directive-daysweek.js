@@ -1,7 +1,11 @@
-calendarModule.directive('daysweek',['$compile',function($compile){
+calendarModule.directive('daysweek',['$compile','constantCalendar',function($compile, constantCalendar){
 	return{
 		restrict: 'E',
 		replace: true,
-		templateUrl: 'module/partials/calendar-days.html'
+		scope: {},
+		templateUrl: 'module/partials/calendar-days.html',
+		controller: ['$scope', function($scope){
+			$scope.constantCalendar = constantCalendar
+		}]
 	}
 }])

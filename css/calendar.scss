@@ -64,6 +64,7 @@ $radius: 3px;
   .container-months{
     box-shadow: 0 2px 10px rgba(0,0,0,0.4);
     background: #ffffff;
+    padding: 10px 15px;
   }
   .block-month{
     margin: 5px;
@@ -71,7 +72,7 @@ $radius: 3px;
     min-width: 160px;
     min-height: 160px;
    // border: 1px solid gainsboro;
-    overflow: hidden;
+  //  overflow: hidden;
     .col-day{
       border-radius: 3px;
     }
@@ -105,8 +106,32 @@ $radius: 3px;
       }
     }
   }
-  .days{
-    border-bottom: 1px solid ghostwhite;
+  .border-line{
+    border-bottom: 1px solid #E0E0E0;
+    position: relative;
+    overflow: inherit;
+    .btn-back, .btn-forward{
+      position: absolute;
+      top: -18px;
+      font-size: 25px;
+      font-weight: bold;
+      color: gray;
+      padding: 0px 5px;
+      cursor: pointer;
+      border-radius: 3px;
+      &:hover{
+        color:  black;
+        background: ghostwhite;
+      }
+    }
+    .btn-back{
+      left: -18px;
+
+    }
+    .btn-forward{
+      right: -18px;
+
+    }
   }
 
 }
