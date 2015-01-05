@@ -3,13 +3,14 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var afterValue = _after.getTime();
 		var beforeValue = _before.getTime();
+
 		function checkCurrentDate(d) {
 			var value = ''
 			if (dateNowValue == d.getTime()) {
 				value += 'current'
 			}
-			if(afterValue<= d.getTime() && d.getTime()<=beforeValue){
-				value+= ' select'
+			if (afterValue <= d.getTime() && d.getTime() <= beforeValue) {
+				value += ' select'
 			}
 
 			return value
@@ -57,7 +58,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		replace: true,
 		templateUrl: 'module/partials/calendar-label.html',
 		scope: {
-			date: '=date',
+			//date: '=date',
 			before: '=before',
 			after: '=after'
 		},
@@ -66,11 +67,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
 
-			$scope.selectDate = $scope.date;
+			//$scope.selectDate = $scope.date;
 
-			var currentViewDate = $scope.date;
-			var currentMonth = $scope.date.getMonth()
-
+			var currentViewDate = new Date($scope.after.getTime() + (($scope.before.getTime() - $scope.after.getTime()) / 2));   // $scope.date;
+			var currentMonth = currentViewDate.getMonth();
 			var previousMonth, nextMonth;
 
 			function render(date) {
@@ -80,7 +80,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				$scope.arrMonth.value = date.getTime();
 				$scope.arrMonthBefore = formatMonth(previousMonth, $scope.after, $scope.before);
 				$scope.arrMonthBefore.value = previousMonth.getTime();
-				$scope.arrMonthAfter = formatMonth(nextMonth,$scope.after, $scope.before);
+				$scope.arrMonthAfter = formatMonth(nextMonth, $scope.after, $scope.before);
 				$scope.arrMonthAfter.value = nextMonth.getTime();
 			}
 
@@ -98,25 +98,25 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				render(date)
 
 			}
-			$scope.selectEvent = function(day){
-				if($scope.before.getTime()<=day.value){
+			$scope.selectEvent = function (day) {
+				if ($scope.before.getTime() <= day.value) {
 					$scope.before = new Date(day.value)
-				}else if(day.value < $scope.after.getTime()+(3600*24*1000)){
+				} else if (day.value < $scope.after.getTime() + (3600 * 24 * 1000)) {
 					$scope.after = new Date(day.value)
-				}else {
-					if(day.value - $scope.after.getTime() < $scope.before.getTime() - day.value){
+				} else {
+					if (day.value - $scope.after.getTime() < $scope.before.getTime() - day.value) {
 						$scope.after = new Date(day.value)
-					}else{
+					} else {
 						$scope.before = new Date(day.value)
 					}
 				}
 			}
-			$scope.$watch('before',function(){
+			$scope.$watch('before', function () {
 				render(currentViewDate)
 			})
-				$scope.$watch('after',function(){
-					render(currentViewDate)
-				})
+			$scope.$watch('after', function () {
+				render(currentViewDate)
+			})
 
 
 			function init() {
@@ -131,6 +131,36 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				}
 				$scope.show = !$scope.show
 			}
+
+			function listen(e) {
+				var val = false
+				angular.forEach($element.find('*'), function (el) {
+					if (angular.equals(angular.element(el), angular.element(e.target))) {
+						val = true
+						return
+					}
+				})
+				if(!val){
+					($scope.show = false)
+					$scope.$apply()
+				}
+			}
+
+			function cleanup(){
+				window.document.removeEventListener('click', listen);
+			}
+
+			$scope.$watch('show', function (val, newVal) {
+				if (val) {
+					window.document.addEventListener('click', listen)
+				} else {
+					window.document.removeEventListener('click', listen);
+				}
+			})
+			$scope.$on('$destroy', function() {
+				console.log("destroy");
+				cleanup();
+			});
 		}]
 	}
 }])
