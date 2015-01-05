@@ -67,10 +67,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
 
-			//$scope.selectDate = $scope.date;
-
 			var currentViewDate = new Date($scope.after.getTime() + (($scope.before.getTime() - $scope.after.getTime()) / 2));   // $scope.date;
-			var currentMonth = currentViewDate.getMonth();
 			var previousMonth, nextMonth;
 
 			function render(date) {
@@ -88,8 +85,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 
 			$scope.stepBack = function () {
-				currentMonth--
-				var date = new Date(currentViewDate.getFullYear(), currentMonth, currentViewDate.getDate())
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth()-1, currentViewDate.getDate())
 				currentViewDate = date;
 				render(date);
 			}
@@ -127,6 +123,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				$element.append(content);
 			}
 
+
 			$scope.click = function () {
 				if (!content) {
 					init()
@@ -135,7 +132,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			}
 
 			function listen(e) {
-				/*var val = false
+				var val = false
 				angular.forEach($element.find('*'), function (el) {
 					if (angular.equals(angular.element(el), angular.element(e.target))) {
 						val = true
@@ -145,7 +142,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				if(!val){
 					($scope.show = false)
 					$scope.$apply()
-				}*/
+				}
 			}
 
 			function cleanup(){
@@ -164,5 +161,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				cleanup();
 			});
 		}]
+
 	}
 }])
