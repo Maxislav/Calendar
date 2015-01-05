@@ -79,6 +79,8 @@
     margin: 5px; }
   .calendar-label .calendar-view .numeric .col-day:hover {
     background: ghostwhite; }
+  .calendar-label .calendar-view .numeric .row {
+    overflow: hidden; }
   .calendar-label .calendar-view .numeric .current {
     border: 1px solid red; }
     .calendar-label .calendar-view .numeric .current:hover {

@@ -98,6 +98,10 @@ $radius: 3px;
         background: ghostwhite;
       }
     }
+    .row{
+      //margin: -3px 0;
+      overflow: hidden;
+    }
     .current{
       border: 1px solid red;
       //background: rgb(255, 228, 144);
