@@ -87,6 +87,8 @@
       background: #ffcf78; }
   .calendar-label .calendar-view .numeric .select {
     background: #b4c7df; }
+    .calendar-label .calendar-view .numeric .select:hover {
+      background: rgba(132, 157, 211, 0.65); }
   .calendar-label .calendar-view .border-line {
     border-bottom: 1px solid #E0E0E0;
     position: relative;

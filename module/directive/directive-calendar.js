@@ -90,11 +90,13 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.stepBack = function () {
 				currentMonth--
 				var date = new Date(currentViewDate.getFullYear(), currentMonth, currentViewDate.getDate())
+				currentViewDate = date;
 				render(date);
 			}
 			$scope.stepForward = function () {
-				currentMonth++
-				var date = new Date(currentViewDate.getFullYear(), currentMonth, currentViewDate.getDate())
+
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth()+1, currentViewDate.getDate())
+				currentViewDate = date
 				render(date)
 
 			}
@@ -133,7 +135,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			}
 
 			function listen(e) {
-				var val = false
+				/*var val = false
 				angular.forEach($element.find('*'), function (el) {
 					if (angular.equals(angular.element(el), angular.element(e.target))) {
 						val = true
@@ -143,7 +145,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				if(!val){
 					($scope.show = false)
 					$scope.$apply()
-				}
+				}*/
 			}
 
 			function cleanup(){

@@ -111,7 +111,9 @@ $radius: 3px;
     }
     .select{
       background: rgb(180, 199, 223);
-     // color: white;
+      &:hover{
+        background: rgba(132, 157, 211, 0.65);
+      }
     }
 
 
