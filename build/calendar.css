@@ -6,7 +6,7 @@
   margin: 5px;
   border: 1px solid gainsboro; }
   .calendar-label .calendar-label-btn {
-    width: 100px;
+    width: 180px;
     text-align: center;
     background: #ffffff;
     /* Old browsers */
@@ -66,8 +66,6 @@
     display: inline-block;
     min-width: 160px;
     min-height: 160px; }
-    .calendar-label .calendar-view .block-month .col-day {
-      border-radius: 3px; }
   .calendar-label .calendar-view .info-block {
     padding: 10px;
     text-align: center; }
@@ -78,20 +76,22 @@
     color: red; }
   .calendar-label .calendar-view .name-month {
     font-style: italic;
-    margin-left: 5px; }
+    margin: 5px; }
   .calendar-label .calendar-view .numeric .col-day:hover {
     background: ghostwhite; }
   .calendar-label .calendar-view .numeric .current {
-    background: #ffe490; }
+    border: 1px solid red; }
     .calendar-label .calendar-view .numeric .current:hover {
       background: #ffcf78; }
+  .calendar-label .calendar-view .numeric .select {
+    background: #b4c7df; }
   .calendar-label .calendar-view .border-line {
     border-bottom: 1px solid #E0E0E0;
     position: relative;
     overflow: inherit; }
     .calendar-label .calendar-view .border-line .btn-back, .calendar-label .calendar-view .border-line .btn-forward {
       position: absolute;
-      top: -18px;
+      top: -16px;
       font-size: 25px;
       font-weight: bold;
       color: gray;
@@ -105,5 +105,37 @@
       left: -18px; }
     .calendar-label .calendar-view .border-line .btn-forward {
       right: -18px; }
+  .calendar-label .calendar-view table td {
+    vertical-align: top; }
+  .calendar-label .calendar-view .info-label {
+    width: 50%;
+    margin: 8px auto; }
+    .calendar-label .calendar-view .info-label .info-label-value {
+      padding: 5px 10px;
+      background: #ffffff;
+      margin-left: 5px;
+      border: 1px solid #E0E0E0;
+      border-radius: 3px; }
+    .calendar-label .calendar-view .info-label .button {
+      margin-left: 5px;
+      border-radius: 3px; }
+  .calendar-label .calendar-view .button {
+    background: #ffffff;
+    /* Old browsers */
+    background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    /* IE6-9 */
+    border: 1px solid #E0E0E0;
+    padding: 5px 10px;
+    cursor: pointer; }
+    .calendar-label .calendar-view .button:active {
+      background: #ffffff;
+      color: gray; }
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; }
 
 /*# sourceMappingURL=calendar.css.map */
