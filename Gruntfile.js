@@ -6,15 +6,15 @@ module.exports = function (grunt) {
     ]
     var jsDefaultFiles = [
         'module/**/**.js',
-        'module/partials/**/**.js',
-        'js/_init.js',
-        'src/**/*.js',
-        'partials/**/**.js'
+        //'module/partials/**/**.js',
+       // 'js/_init.js',
+       // 'src/**/*.js',
+       // 'partials/**/**.js'
     ]
 
     var htmlFiles = [
-        'module/partials/**/**.html',
-        'partials/**/**.html'
+        'module/partials/**/**.html'
+        //'partials/**/**.html'
     ]
 
     grunt.initConfig({
@@ -24,7 +24,8 @@ module.exports = function (grunt) {
                     sourcemap: 'auto'
                 },
                 files: {
-                    'build/default.css': 'css/default.scss'
+                    'build/default.css': 'css/default.scss',
+                    'build/calendar.css': 'css/calendar.scss'
                 }
             },
             prod: {
@@ -33,7 +34,8 @@ module.exports = function (grunt) {
                     style: 'compressed'
                 },
                 files: {
-                    'build/default.css': 'css/default.scss'
+                    'build/default.css': 'css/default.scss',
+                    'build/calendar.css': 'css/calendar.scss'
                 }
             }
         },
@@ -44,7 +46,7 @@ module.exports = function (grunt) {
                     mangle: false
                 },
                 files: {
-                    'build/default.js': jsDefaultFiles
+                    'build/calendar.js': jsDefaultFiles
                 }
             },
             prod: {
@@ -53,7 +55,7 @@ module.exports = function (grunt) {
                     mangle: true
                 },
                 files: {
-                    'build/default.js': jsDefaultFiles
+                    'build/calendar.js': jsDefaultFiles
                 }
             }
         },
