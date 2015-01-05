@@ -69,6 +69,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 			var currentViewDate = new Date($scope.after.getTime() + (($scope.before.getTime() - $scope.after.getTime()) / 2));   // $scope.date;
 			var previousMonth, nextMonth;
+			$scope.includeMonths = 'module/partials/container-months.html'
 
 			function render(date) {
 				previousMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())
@@ -81,17 +82,33 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				$scope.arrMonthAfter.value = nextMonth.getTime();
 			}
 
-			render(currentViewDate)
+			render(currentViewDate);
 
 
+			$scope.viewMonth = [0];
+			var k = 0
 			$scope.stepBack = function () {
-				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth()-1, currentViewDate.getDate())
+				k++
+			//	$scope.viewMonth.length =0
+				//$scope.viewMonth[0] = k;
+				//$scope.viewMonth[1] = k;
+
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, currentViewDate.getDate())
 				currentViewDate = date;
 				render(date);
+				$scope.viewMonth.length = 0
+				$timeout(function(){
+
+					$scope.viewMonth[0] =1
+				},1)
+
+
+
+
 			}
 			$scope.stepForward = function () {
 
-				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth()+1, currentViewDate.getDate())
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() + 1, currentViewDate.getDate())
 				currentViewDate = date
 				render(date)
 
@@ -110,26 +127,14 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				}
 			}
 			$scope.$watch('before', function () {
+
+
 				render(currentViewDate)
+
 			})
 			$scope.$watch('after', function () {
 				render(currentViewDate)
 			})
-
-
-			function init() {
-				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
-				content = linkFn($scope);
-				$element.append(content);
-			}
-
-
-			$scope.click = function () {
-				if (!content) {
-					init()
-				}
-				$scope.show = !$scope.show
-			}
 
 			function listen(e) {
 				var val = false
@@ -139,13 +144,13 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 						return
 					}
 				})
-				if(!val){
+				if (!val) {
 					($scope.show = false)
 					$scope.$apply()
 				}
 			}
 
-			function cleanup(){
+			function cleanup() {
 				window.document.removeEventListener('click', listen);
 			}
 
@@ -156,11 +161,29 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 					window.document.removeEventListener('click', listen);
 				}
 			})
-			$scope.$on('$destroy', function() {
+			$scope.$on('$destroy', function () {
 				console.log("destroy");
 				cleanup();
 			});
-		}]
+		}],
+		link: function ($scope, $element) {
+			var content;
+
+			function init() {
+				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
+				content = linkFn($scope);
+				$element.append(content);
+			}
+
+
+			$scope.click = function () {
+				if (!content) {
+
+					init()
+				}
+				$scope.show = !$scope.show
+			}
+		}
 
 	}
 }])

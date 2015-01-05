@@ -1,23 +1,23 @@
 $radius: 3px;
-@mixin background-gradient(){
+@mixin background-gradient() {
   background: #ffffff; /* Old browsers */
-  background: linear-gradient(to bottom,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+  background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
 }
 
-.calendar-label{
+.calendar-label {
   position: relative;
   display: inline-block;
   background: gainsboro;
   border-radius: $radius;
   margin: 5px;
   border: 1px solid gainsboro;
-  .calendar-label-btn{
+  .calendar-label-btn {
     width: 180px;
     text-align: center;
-   @include background-gradient();
+    @include background-gradient();
   }
-  .calendar-label-ico{
+  .calendar-label-ico {
     width: 30px;
     height: 100%;
     border-top-right-radius: $radius;
@@ -26,30 +26,31 @@ $radius: 3px;
     padding: 0;
     border-left: 1px solid gainsboro;
     @include background-gradient();
-    &:active{
+    &:active {
       background: #ffffff;
-      box-shadow: inset  0 0 10px gainsboro;
+      box-shadow: inset 0 0 10px gainsboro;
       -moz-user-select: none;
-      -o-user-select:none;
+      -o-user-select: none;
       -khtml-user-select: none;
       -webkit-user-select: none;
       -ms-user-select: none;
       user-select: none;
     }
   }
-  .ico-calendar{
+  .ico-calendar {
     background: url("../img/calendar.png") no-repeat center;
     padding: 5px 10px;
     background-size: 70% 70%;
   }
-  &>div{
+  & > div {
     display: inline-block;
     padding: 5px 10px;
 
   }
 
 }
-.calendar-label .calendar-view{
+
+.calendar-label .calendar-view {
   position: absolute;
   background: #FCF3DC;
   top: 30px;
@@ -61,68 +62,81 @@ $radius: 3px;
   white-space: nowrap;
   font-size: 12px;
   border-radius: 3px;
-  .container-months{
-    box-shadow: 0 2px 10px rgba(0,0,0,0.4);
+  width: 600px;
+  height: 400px;
+
+  .container-months {
+    left: 0;
+    position: absolute;
+    top: 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     background: #ffffff;
     padding: 10px 15px;
+   // position: relative;
+    &:last-child{
+      position: absolute;
+    }
   }
-  .block-month{
+
+  .block-month {
     margin: 5px;
     display: inline-block;
     min-width: 160px;
     min-height: 160px;
 
-    .col-day{
-     // border-radius: 3px;
+    .col-day {
+      // border-radius: 3px;
     }
   }
-  .info-block{
+  .info-block {
     padding: 10px;
+    bottom: 0;
     text-align: center;
+    position: absolute;
+    width: 100%;
   }
-  .col-day{
+  .col-day {
     cursor: pointer;
 
     padding: 2px;
   }
-  .red{
+  .red {
     color: red;
   }
-  .name-month{
+  .name-month {
     font-style: italic;
     margin: 5px;
   }
-  .numeric{
-    .col-day{
-      &:hover{
+  .numeric {
+    .col-day {
+      &:hover {
         background: ghostwhite;
       }
     }
-    .row{
+    .row {
       //margin: -3px 0;
       overflow: hidden;
     }
-    .current{
+    .current {
       border: 1px solid red;
       //background: rgb(255, 228, 144);
-      &:hover{
+      &:hover {
         background: #ffcf78;
       }
     }
-    .select{
+    .select {
       background: rgb(180, 199, 223);
-      &:hover{
+      &:hover {
         background: rgba(132, 157, 211, 0.65);
       }
     }
 
-
   }
-  .border-line{
+  .border-line {
     border-bottom: 1px solid #E0E0E0;
     position: relative;
     overflow: inherit;
-    .btn-back, .btn-forward{
+    .btn-back, .btn-forward {
       position: absolute;
       top: -16px;
       font-size: 25px;
@@ -131,56 +145,155 @@ $radius: 3px;
       padding: 0px 5px;
       cursor: pointer;
       border-radius: 3px;
-      &:hover{
-        color:  black;
+      &:hover {
+        color: black;
         background: ghostwhite;
       }
     }
-    .btn-back{
+    .btn-back {
       left: -18px;
 
     }
-    .btn-forward{
+    .btn-forward {
       right: -18px;
 
     }
   }
-  table td{
+  table td {
     vertical-align: top;
   }
-  .info-label{
+  .info-label {
 
     width: 50%;
     margin: 8px auto;
-    .info-label-value{
+    .info-label-value {
       padding: 5px 10px;
       background: #ffffff;
-     // margin: 0 5px;
+      // margin: 0 5px;
       margin-left: 5px;
       border: 1px solid #E0E0E0;
       border-radius: 3px;
     }
-    .button{
+    .button {
       margin-left: 5px;
-     // margin: 0 5px;
+      // margin: 0 5px;
       border-radius: 3px;
 
     }
   }
-  .button{
+  .button {
     @include background-gradient();
     border: 1px solid #E0E0E0;
     padding: 5px 10px;
     cursor: pointer;
-    &:active{
+    &:active {
       background: #ffffff;
       color: gray;
     }
   }
 
 }
-*{
+
+* {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-   box-sizing: border-box;
+  box-sizing: border-box;
 }
+
+$transition: 0.2s;
+.calendar-label .calendar-view {
+  transition: $transition;
+  transform-origin: right top;
+  &.ng-hide-remove {
+    opacity: 0;
+    top: 0;
+    transform: scaleY(0.1);
+    &.ng-hide-remove-active {
+      transform: scaleY(1);
+      opacity: 1;
+      top: 30px;
+      transition: $transition;
+    }
+  }
+  &.ng-hide-add {
+    opacity: 1;
+    top: 30px;
+    transform: scaleY(1);
+    &.ng-hide-add-active {
+      top: 0;
+      transform: scaleY(0.1);
+      opacity: 0;
+      transition: $transition;
+    }
+  }
+}
+
+
+$transition: 2s;
+.container-months {
+  transition: $transition linear;
+  transform: rotateY(0deg);
+  &.ng-enter {
+    transform-origin: right;
+    transform: rotateY(90deg);
+    &.ng-enter-active {
+      transform: rotateY(0deg);
+    }
+  }
+  &.ng-leave {
+    transform-origin: left;
+    transform: rotateY(90deg);
+    &.ng-leave-active {
+      transform: rotateY(0deg);
+
+    }
+  }
+}
+
+
+
+/*
+.animate-repeat {
+  line-height:40px;
+  list-style:none;
+  box-sizing:border-box;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+  opacity:0;
+  max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:40px;
+}*/
+
+
+/*
+
+.container-months {
+  &.ng-enter, &.ng-leave {
+    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    padding: 10px;
+  }
+}*/

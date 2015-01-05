@@ -12,7 +12,7 @@
     /* Old browsers */
     background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
     /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
     /* IE6-9 */ }
   .calendar-label .calendar-label-ico {
     width: 30px;
@@ -26,11 +26,11 @@
     /* Old browsers */
     background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
     /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
     /* IE6-9 */ }
     .calendar-label .calendar-label-ico:active {
       background: #ffffff;
-      box-shadow: inset  0 0 10px gainsboro;
+      box-shadow: inset 0 0 10px gainsboro;
       -moz-user-select: none;
       -o-user-select: none;
       -khtml-user-select: none;
@@ -56,11 +56,18 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 12px;
-  border-radius: 3px; }
+  border-radius: 3px;
+  width: 600px;
+  height: 400px; }
   .calendar-label .calendar-view .container-months {
+    left: 0;
+    position: absolute;
+    top: 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     background: #ffffff;
     padding: 10px 15px; }
+    .calendar-label .calendar-view .container-months:last-child {
+      position: absolute; }
   .calendar-label .calendar-view .block-month {
     margin: 5px;
     display: inline-block;
@@ -68,7 +75,10 @@
     min-height: 160px; }
   .calendar-label .calendar-view .info-block {
     padding: 10px;
-    text-align: center; }
+    bottom: 0;
+    text-align: center;
+    position: absolute;
+    width: 100%; }
   .calendar-label .calendar-view .col-day {
     cursor: pointer;
     padding: 2px; }
@@ -128,7 +138,7 @@
     /* Old browsers */
     background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%);
     /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff',GradientType=0 );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0);
     /* IE6-9 */
     border: 1px solid #E0E0E0;
     padding: 5px 10px;
@@ -141,5 +151,85 @@
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
+
+.calendar-label .calendar-view {
+  transition: 0.2s;
+  transform-origin: right top; }
+  .calendar-label .calendar-view.ng-hide-remove {
+    opacity: 0;
+    top: 0;
+    transform: scaleY(0.1); }
+    .calendar-label .calendar-view.ng-hide-remove.ng-hide-remove-active {
+      transform: scaleY(1);
+      opacity: 1;
+      top: 30px;
+      transition: 0.2s; }
+  .calendar-label .calendar-view.ng-hide-add {
+    opacity: 1;
+    top: 30px;
+    transform: scaleY(1); }
+    .calendar-label .calendar-view.ng-hide-add.ng-hide-add-active {
+      top: 0;
+      transform: scaleY(0.1);
+      opacity: 0;
+      transition: 0.2s; }
+
+.container-months {
+  transition: 2s linear;
+  transform: rotateY(0deg); }
+  .container-months.ng-enter {
+    transform-origin: right;
+    transform: rotateY(90deg); }
+    .container-months.ng-enter.ng-enter-active {
+      transform: rotateY(0deg); }
+  .container-months.ng-leave {
+    transform-origin: left;
+    transform: rotateY(90deg); }
+    .container-months.ng-leave.ng-leave-active {
+      transform: rotateY(0deg); }
+
+/*
+.animate-repeat {
+  line-height:40px;
+  list-style:none;
+  box-sizing:border-box;
+}
+
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter,
+.animate-repeat.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.animate-repeat.ng-leave.ng-leave-active,
+.animate-repeat.ng-move,
+.animate-repeat.ng-enter {
+  opacity:0;
+  max-height:0;
+}
+
+.animate-repeat.ng-leave,
+.animate-repeat.ng-move.ng-move-active,
+.animate-repeat.ng-enter.ng-enter-active {
+  opacity:1;
+  max-height:40px;
+}*/
+/*
+
+.container-months {
+  &.ng-enter, &.ng-leave {
+    -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+    transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.5s;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: block;
+    padding: 10px;
+  }
+}*/
 
 /*# sourceMappingURL=calendar.css.map */
