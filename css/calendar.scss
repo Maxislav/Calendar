@@ -9,6 +9,10 @@ $radius: 3px;
   box-shadow: inset 1px 2px 5px rgba(0,0,0,0.5);
 }
 .calendar-label {
+
+  .col-day{
+    width: 14.2%;
+  }
   position: relative;
   display: inline-block;
   background: gainsboro;
@@ -79,7 +83,7 @@ $radius: 3px;
   .block-month {
     margin: 5px;
     display: inline-block;
-    min-width: 160px;
+    min-width: 180px;
     min-height: 160px;
 
     .col-day {
@@ -87,14 +91,13 @@ $radius: 3px;
     }
   }
   .info-block {
-    padding: 10px;
+    padding: 5px 2px;
     bottom: 0;
     text-align: center;
     width: 100%;
   }
   .col-day {
     cursor: pointer;
-
     padding: 2px;
   }
   .red {
@@ -160,28 +163,27 @@ $radius: 3px;
     vertical-align: top;
   }
   .info-label {
-
-    width: 50%;
+    &>div{
+      display: inline-block;
+    }
+    width: 100%;
     margin: 8px auto;
     .info-label-value {
-      padding: 5px 10px;
+      padding: 5px 3px;
       background: #ffffff;
-      // margin: 0 5px;
       margin-left: 5px;
       border: 1px solid #E0E0E0;
       border-radius: 3px;
     }
     .button {
       margin-left: 5px;
-      // margin: 0 5px;
       border-radius: 3px;
-
     }
   }
   .button {
     @include background-gradient();
     border: 1px solid #E0E0E0;
-    padding: 5px 10px;
+    padding: 5px 3px;
     cursor: pointer;
     &:active {
       background: #ffffff;
@@ -242,7 +244,6 @@ $transition: 2s;
     transform: rotateY(90deg);
     &.ng-leave-active {
       transform: rotateY(0deg);
-
     }
   }
 }
