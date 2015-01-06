@@ -12,7 +12,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-view.html',
-    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\" ng-animate=\"'animate'\" ng-repeat=\"m in viewMonth  track by $index\">{{m}}<div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"row info-label\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"click()\">Применить</div></div></div></div></div>"
+    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"row info-label\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"click()\">Применить</div></div></div></div></div>"
   );
 
 

@@ -84,27 +84,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 			render(currentViewDate);
 
-
-			$scope.viewMonth = [0];
-			var k = 0
 			$scope.stepBack = function () {
-				k++
-			//	$scope.viewMonth.length =0
-				//$scope.viewMonth[0] = k;
-				//$scope.viewMonth[1] = k;
-
 				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, currentViewDate.getDate())
 				currentViewDate = date;
 				render(date);
-				$scope.viewMonth.length = 0
-				$timeout(function(){
-
-					$scope.viewMonth[0] =1
-				},1)
-
-
-
-
 			}
 			$scope.stepForward = function () {
 

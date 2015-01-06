@@ -1,11 +1,8 @@
 <div ng-show="show" class="calendar-view">
-    <div class="container-months"   ng-animate="'animate'" ng-repeat="m in viewMonth  track by $index">
-        {{m}}
+    <div class="container-months" >
         <div ng-include="includeMonths">
 
         </div>
-
-
     </div>
     <div class="info-block">
         <div class="row info-label">
