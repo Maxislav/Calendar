@@ -131,8 +131,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			})
 
 			function listen(e) {
+				console.log($scope.calendarElement)
+
 				var val = false
-				angular.forEach($element.find('*'), function (el) {
+				angular.forEach($scope.calendarElement.find('*'), function (el) {
 					if (angular.equals(angular.element(el), angular.element(e.target))) {
 						val = true
 						return
@@ -167,7 +169,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
 				content = linkFn($scope);
 				content.css('display','none')
-				$element.append(content);
+
+				var body  =  angular.element(document.body)
+				body.append(content);
+				$scope.calendarElement = content;
 				$timeout(function(){
 					$scope.show = true
 					content.css('display','inherit')
@@ -179,6 +184,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 					return
 				}
 				$scope.show = !$scope.show
+				console.log($scope.show)
 			}
 		}
 
