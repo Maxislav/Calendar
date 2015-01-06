@@ -7,12 +7,12 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-label.html',
-    "<div class=\"calendar-label\"><div class=\"calendar-label-btn\">{{after | date:'dd MMM'}} - {{before | date:'dd MMM'}} {{before | date:'yyyy'}}</div><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div></div>"
+    "<div class=\"calendar-label\"><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\">{{after | date:'dd MMM'}} - {{beforeLabelValue | date:'dd MMM'}} {{before | date:'yyyy'}}</div><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div></div>"
   );
 
 
   $templateCache.put('module/partials/calendar-view.html',
-    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"row info-label\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"click()\">Применить</div></div></div></div></div>"
+    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"row info-label\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"apply()\">Применить</div></div></div></div></div>"
   );
 
 

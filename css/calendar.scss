@@ -4,7 +4,10 @@ $radius: 3px;
   background: linear-gradient(to bottom, #ffffff 0%, #f3f3f3 50%, #ededed 51%, #ffffff 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0); /* IE6-9 */
 }
-
+@mixin  background-gradient-open(){
+ background: #FCF3DC;
+  box-shadow: inset 1px 2px 5px rgba(0,0,0,0.5);
+}
 .calendar-label {
   position: relative;
   display: inline-block;
@@ -16,6 +19,10 @@ $radius: 3px;
     width: 180px;
     text-align: center;
     @include background-gradient();
+    transition: 0.1s;
+    &.open{
+      @include background-gradient-open();
+    }
   }
   .calendar-label-ico {
     width: 30px;
@@ -47,9 +54,7 @@ $radius: 3px;
     padding: 5px 10px;
 
   }
-
 }
-
 .calendar-label .calendar-view {
   position: absolute;
   background: #FCF3DC;
@@ -62,15 +67,10 @@ $radius: 3px;
   white-space: nowrap;
   font-size: 12px;
   border-radius: 3px;
-  //width: 600px;
- // height: 400px;
-
   .container-months {
-
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     background: #ffffff;
     padding: 10px 15px;
-   // position: relative;
     &:last-child{
       position: absolute;
     }
@@ -204,7 +204,7 @@ $transition: 0.2s;
   &.ng-hide-remove {
     opacity: 0;
     top: 0;
-    transform: scaleY(0.1);
+    transform: scaleY(0);
     &.ng-hide-remove-active {
       transform: scaleY(1);
       opacity: 1;
@@ -218,7 +218,7 @@ $transition: 0.2s;
     transform: scaleY(1);
     &.ng-hide-add-active {
       top: 0;
-      transform: scaleY(0.1);
+      transform: scaleY(0);
       opacity: 0;
       transition: $transition;
     }

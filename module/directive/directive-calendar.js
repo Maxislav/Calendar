@@ -58,14 +58,18 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		replace: true,
 		templateUrl: 'module/partials/calendar-label.html',
 		scope: {
-			//date: '=date',
 			before: '=before',
-			after: '=after'
+			after: '=after',
+			link: '@link'
 		},
 		controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
-			var content = null;
+			var link = $scope.link == 'true' ? true : false ;
+
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
+
+			$scope.beforeLabelValue =  $scope.before;
+			$scope.afterLabelValue =  $scope.after;
 
 			var currentViewDate = new Date($scope.after.getTime() + (($scope.before.getTime() - $scope.after.getTime()) / 2));   // $scope.date;
 			var previousMonth, nextMonth;
@@ -99,18 +103,28 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.selectEvent = function (day) {
 				if ($scope.before.getTime() <= day.value) {
 					$scope.before = new Date(day.value)
+
 				} else if (day.value < $scope.after.getTime() + (3600 * 24 * 1000)) {
 					$scope.after = new Date(day.value)
 				} else {
 					$scope.after = new Date(day.value)
 					$scope.before = new Date(day.value)
 				}
+
+				if(link){
+					$scope.beforeLabelValue  = $scope.before
+					$scope.afterLabelValue =  $scope.after;
+				}
 			}
+
+			$scope.apply = function(){
+				$scope.beforeLabelValue  = $scope.before
+				$scope.afterLabelValue =  $scope.after;
+				$scope.click()
+			}
+
 			$scope.$watch('before', function () {
-
-
 				render(currentViewDate)
-
 			})
 			$scope.$watch('after', function () {
 				render(currentViewDate)
@@ -147,9 +161,9 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			});
 		}],
 		link: function ($scope, $element) {
-			var content;
+			var content = null;
+			$scope.show = false;
 			function init() {
-				$scope.show = false;
 				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
 				content = linkFn($scope);
 				content.css('display','none')
@@ -164,10 +178,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 					init()
 					return
 				}
-				/*$timeout(function(){
-					$scope.show = !$scope.show
-					content.css('display','inherit')
-				},1)*/
 				$scope.show = !$scope.show
 			}
 		}
