@@ -1,4 +1,4 @@
-calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar', function ($compile, $templateCache, constantCalendar) {
+calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar','$timeout', function ($compile, $templateCache, constantCalendar, $timeout) {
 	function formatMonth(date, _after, _before) {
 		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var afterValue = _after.getTime();
@@ -102,11 +102,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				} else if (day.value < $scope.after.getTime() + (3600 * 24 * 1000)) {
 					$scope.after = new Date(day.value)
 				} else {
-					if (day.value - $scope.after.getTime() < $scope.before.getTime() - day.value) {
-						$scope.after = new Date(day.value)
-					} else {
-						$scope.before = new Date(day.value)
-					}
+					$scope.after = new Date(day.value)
+					$scope.before = new Date(day.value)
 				}
 			}
 			$scope.$watch('before', function () {
@@ -151,19 +148,26 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		}],
 		link: function ($scope, $element) {
 			var content;
-
 			function init() {
+				$scope.show = false;
 				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
 				content = linkFn($scope);
+				content.css('display','none')
 				$element.append(content);
+				$timeout(function(){
+					$scope.show = true
+					content.css('display','inherit')
+				},1)
 			}
-
-
 			$scope.click = function () {
 				if (!content) {
-
 					init()
+					return
 				}
+				/*$timeout(function(){
+					$scope.show = !$scope.show
+					content.css('display','inherit')
+				},1)*/
 				$scope.show = !$scope.show
 			}
 		}
