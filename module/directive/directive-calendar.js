@@ -101,10 +101,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 			}
 			$scope.selectEvent = function (day) {
-				if ($scope.before.getTime() <= day.value) {
+				if ($scope.before.getTime() < day.value) {
 					$scope.before = new Date(day.value)
 
-				} else if (day.value < $scope.after.getTime() + (3600 * 24 * 1000)) {
+				} else if (day.value < $scope.after.getTime()) {
 					$scope.after = new Date(day.value)
 				} else {
 					$scope.after = new Date(day.value)
