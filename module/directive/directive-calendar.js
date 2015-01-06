@@ -131,15 +131,24 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			})
 
 			function listen(e) {
-				console.log($scope.calendarElement)
-
 				var val = false
 				angular.forEach($scope.calendarElement.find('*'), function (el) {
-					if (angular.equals(angular.element(el), angular.element(e.target))) {
+					if ( angular.equals(angular.element(el), angular.element(e.target))   ) {
 						val = true
 						return
 					}
 				})
+
+				if(!val){
+					angular.forEach($element.find('*'), function (el) {
+						if ( angular.equals(angular.element(el), angular.element(e.target))   ) {
+							val = true
+							return
+						}
+					})
+				}
+
+
 				if (!val) {
 					($scope.show = false)
 					$scope.$apply()

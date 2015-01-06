@@ -200,9 +200,10 @@ $radius: 3px;
 }
 
 $transition: 0.2s;
-.calendar-label .calendar-view {
+.calendar-view {
   transition: $transition;
   transform-origin: right top;
+  transform: scaleY(1);
   &.ng-hide-remove {
     opacity: 0;
     top: 0;
