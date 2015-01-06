@@ -13,6 +13,7 @@ $radius: 3px;
   .col-day{
     width: 14.2%;
   }
+  width: 200px;
   position: relative;
   display: inline-block;
   background: gainsboro;
@@ -35,6 +36,7 @@ $radius: 3px;
     border-bottom-right-radius: $radius;
     cursor: pointer;
     padding: 0;
+    float: right;
     border-left: 1px solid gainsboro;
     @include background-gradient();
     &:active {
@@ -54,9 +56,7 @@ $radius: 3px;
     background-size: 70% 70%;
   }
   & > div {
-    display: inline-block;
     padding: 5px 10px;
-
   }
 }
  .calendar-view {
