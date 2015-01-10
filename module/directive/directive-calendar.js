@@ -118,8 +118,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			}
 
 			$scope.apply = function(){
-				$scope.beforeLabelValue  = $scope.before
-				$scope.afterLabelValue =  $scope.after;
+				/*$scope.beforeLabelValue  = $scope.before
+				$scope.afterLabelValue =  $scope.after;*/
 				$scope.click()
 			}
 

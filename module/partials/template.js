@@ -12,7 +12,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-view.html',
-    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\"><div class=\"\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div><div class=\"button\" ng-click=\"apply()\">Сегодня</div></div></div></div></div>"
+    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\"><div class=\"\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div><div class=\"button\" ng-click=\"apply()\">Close</div></div></div></div></div>"
   );
 
 
