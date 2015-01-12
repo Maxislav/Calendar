@@ -7,7 +7,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-label.html',
-    "<div class=\"calendar-label\"><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\">{{after | date:'dd MMM'}} - {{beforeLabelValue | date:'dd MMM'}} {{before | date:'yyyy'}}</div><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div></div>"
+    "<div class=\"calendar-label\"><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\">{{after | date:'dd MMM'}} - {{before | date:'dd MMM'}} {{before | date:'yyyy'}}</div><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div></div>"
   );
 
 

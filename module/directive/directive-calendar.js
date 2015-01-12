@@ -77,11 +77,17 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 			function render(date) {
 				previousMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())
-				nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate())
+				nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate());
+
+
+
+
 				$scope.arrMonth = formatMonth(date, $scope.after, $scope.before);
 				$scope.arrMonth.value = date.getTime();
+
 				$scope.arrMonthBefore = formatMonth(previousMonth, $scope.after, $scope.before);
 				$scope.arrMonthBefore.value = previousMonth.getTime();
+
 				$scope.arrMonthAfter = formatMonth(nextMonth, $scope.after, $scope.before);
 				$scope.arrMonthAfter.value = nextMonth.getTime();
 			}
@@ -111,15 +117,9 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 					$scope.before = new Date(day.value)
 				}
 
-				if(link){
-					$scope.beforeLabelValue  = $scope.before
-					$scope.afterLabelValue =  $scope.after;
-				}
 			}
 
 			$scope.apply = function(){
-				$scope.beforeLabelValue  = $scope.before
-				$scope.afterLabelValue =  $scope.after;
 				$scope.click()
 			}
 
@@ -154,7 +154,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				} else {
 					window.document.removeEventListener('click', listen);
 				}
-			})
+			});
 			$scope.$on('$destroy', function () {
 				console.log("destroy");
 				cleanup();
