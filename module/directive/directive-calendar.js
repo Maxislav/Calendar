@@ -60,12 +60,13 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
         scope: {
             before: '=before',
             after: '=after',
-            link: '@link'
+            link: '@link',
+            viewMonths: '@viewMonths'
         },
         controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
             var link = $scope.link == 'true' ? true : false;
-
-            //console.log(link)
+            $scope.viewMonths = parseFloat($scope.viewMonths) || 3;
+            console.log($scope.viewMonths)
 
             $scope.show = false;
             $scope.constantCalendar = constantCalendar;
@@ -83,7 +84,40 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                 previousMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())
                 nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate());
 
-                $scope.months[0] = {
+
+                function getdate(i){
+                   var k = (-1*Math.ceil($scope.viewMonths/2)) +i+1;
+                    return new Date(date.getFullYear(), date.getMonth() + k, date.getDate());
+
+                }
+
+
+                for(var i=0; i<$scope.viewMonths; i++){
+
+                    var d = getdate(i);
+                    var btn;
+                    switch (i){
+                        case 0:
+                            btn = 'module/partials/btn-back.html' ;
+                            break;
+                        case $scope.viewMonths-1:
+                            btn = 'module/partials/btn-forward.html'
+                            break;
+                        default :
+                            btn = null
+
+
+                    }
+
+                    $scope.months[i] = {
+                        formatMonth: formatMonth(d,  $scope.afterLabelValue, $scope.beforeLabelValue),
+                        value: d.getTime(),
+                        btn: btn
+                    };
+                }
+
+
+                /*$scope.months[0] = {
                     formatMonth: formatMonth(previousMonth,  $scope.afterLabelValue, $scope.beforeLabelValue),
                     value: previousMonth.getTime(),
                     btn: 'module/partials/btn-back.html'
@@ -100,7 +134,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                     formatMonth: formatMonth(nextMonth,  $scope.afterLabelValue, $scope.beforeLabelValue),
                     value: nextMonth.getTime(),
                     btn: 'module/partials/btn-forward.html'
-                }
+                }*/
             }
 
             render(currentViewDate);
