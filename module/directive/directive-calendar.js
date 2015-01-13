@@ -159,8 +159,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
             $scope.$watch('show', function (val, newVal) {
                 if (val) {
                     window.document.addEventListener('click', listen);
-                    //console.log(factoryOffset.getOffset($scope.content[0]).top)
-
                 } else {
                     window.document.removeEventListener('click', listen);
                 }
