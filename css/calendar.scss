@@ -55,7 +55,7 @@ $radius: 3px;
 
   }
 }
-.calendar-label .calendar-view {
+.calendar-view {
   position: absolute;
   background: #FCF3DC;
   top: 30px;
@@ -67,6 +67,7 @@ $radius: 3px;
   white-space: nowrap;
   font-size: 12px;
   border-radius: 3px;
+  z-index: 100;
   .container-months {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
     background: #ffffff;
@@ -94,7 +95,6 @@ $radius: 3px;
   }
   .col-day {
     cursor: pointer;
-
     padding: 2px;
   }
   .red {
@@ -129,10 +129,14 @@ $radius: 3px;
     }
 
   }
-  .border-line {
+  .days{
     border-bottom: 1px solid #E0E0E0;
+  }
+  .border-line {
+   // border-bottom: 1px solid #E0E0E0;
     position: relative;
     overflow: inherit;
+
     .btn-back, .btn-forward {
       position: absolute;
       top: -16px;
@@ -198,7 +202,7 @@ $radius: 3px;
 }
 
 $transition: 0.2s;
-.calendar-label .calendar-view {
+.calendar-view {
   transition: $transition;
   transform-origin: right top;
   &.ng-hide-remove {

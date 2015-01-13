@@ -27,7 +27,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/container-months.html',
-    "<table><tr><td ng-repeat=\"month in months track by $index\"><!--текущий--><div class=\"block-month\"><daysweek></daysweek><div class=\"border-line\" ng-include=\"month.btn\"></div><div class=\"row name-month\">{{month.value | date:'MMMM yyyy'}}</div><div class=\"numeric\"><div class=\"row\" ng-repeat=\"week in month.formatMonth track by $index\"><div class=\"col-day text-right {{day.class}}\" ng-repeat=\"day in month.formatMonth[$index] track by $index\" ng-click=\"selectEvent(day)\"><span ng-switch=\"$index\"><span ng-switch-when=\"6\" class=\"red\">{{day.value | date:'d'}}</span> <span ng-switch-when=\"5\" class=\"red\">{{day.value | date:'d'}}</span> <span ng-switch-default>{{day.value | date:'d'}}</span></span></div></div></div></div></td></tr></table>"
+    "<table><tr><td ng-repeat=\"month in months track by $index\"><div class=\"block-month\"><daysweek></daysweek><div class=\"border-line\" ng-include=\"month.btn\"></div><div class=\"row name-month\">{{month.value | date:'MMMM yyyy'}}</div><div class=\"numeric\"><div class=\"row\" ng-repeat=\"week in month.formatMonth track by $index\"><div class=\"col-day text-right {{day.class}}\" ng-repeat=\"day in month.formatMonth[$index] track by $index\" ng-click=\"selectEvent(day)\"><span ng-switch=\"$index\"><span ng-switch-when=\"6\" class=\"red\">{{day.value | date:'d'}}</span> <span ng-switch-when=\"5\" class=\"red\">{{day.value | date:'d'}}</span> <span ng-switch-default>{{day.value | date:'d'}}</span></span></div></div></div></div></td></tr></table>"
   );
 
 }]);

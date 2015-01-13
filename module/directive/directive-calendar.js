@@ -138,19 +138,30 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                 render(currentViewDate)
             })
 
-            function listen(e) {
-                var val = false
-                angular.forEach($element.find('*'), function (el) {
-                    if (angular.equals(angular.element(el), angular.element(e.target))) {
-                        val = true
-                        return
-                    }
-                })
-                if (!val) {
-                    ($scope.show = false)
-                    $scope.$apply()
-                }
-            }
+			function listen(e) {
+				var val = false
+				angular.forEach($scope.content.find('*'), function (el) {
+					if ( angular.equals(angular.element(el), angular.element(e.target))   ) {
+						val = true
+						return
+					}
+				})
+
+				if(!val){
+					angular.forEach($element.find('*'), function (el) {
+						if ( angular.equals(angular.element(el), angular.element(e.target))   ) {
+							val = true
+							return
+						}
+					})
+				}
+
+
+				if (!val) {
+					($scope.show = false)
+					$scope.$apply()
+				}
+			}
 
             function cleanup() {
                 window.document.removeEventListener('click', listen);
@@ -159,7 +170,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
             $scope.$watch('show', function (val, newVal) {
                 if (val) {
                     window.document.addEventListener('click', listen);
-                    //console.log(factoryOffset.getOffset($scope.content[0]).top)
 
                 } else {
                     window.document.removeEventListener('click', listen);
@@ -177,10 +187,15 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
             function init() {
                 var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
                 $scope.content = content = linkFn($scope);
-
-                content.css('display', 'none')
-                $element.append(content);
-                console.log(factoryOffset.getOffset($element[0]).top)
+                content.css('display', 'none');
+                angular.element(document.body).append(content);
+                var left, top;
+                //console.log($element.prop('offsetHeight'));
+                left = factoryOffset.getOffset($element[0]).left+$element.prop('offsetWidth')/2;
+                top = factoryOffset.getOffset($element[0]).top+$element.prop('offsetHeight');
+                $scope.content.css('left',left+'px')
+                $scope.content.css('top',top+'px')
+				//$scope.calendarElement = content;
                 $timeout(function () {
                     $scope.show = true
                     content.css('display', 'inherit')
@@ -192,7 +207,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                     init()
                     return
                 }
-                console.log(factoryOffset.getOffset($element[0]).top)
+               // console.log(factoryOffset.getOffset($element[0]).top)
                 $scope.show = !$scope.show
             }
         }
