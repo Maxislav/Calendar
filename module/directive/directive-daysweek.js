@@ -3,9 +3,16 @@ calendarModule.directive('daysweek',['$compile','constantCalendar',function($com
 		restrict: 'E',
 		replace: true,
 		scope: {},
+		require: '^calendar',
 		templateUrl: 'module/partials/calendar-days.html',
-		controller: ['$scope', function($scope){
+		link: function($scope, $element, $attr, $contrl){
+
+
 			$scope.constantCalendar = constantCalendar
+			console.log($contrl.startWeek)
+		},
+		controller: ['$scope', function($scope){
+
 		}]
 	}
 }])

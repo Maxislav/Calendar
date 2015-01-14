@@ -1,8 +1,6 @@
 calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar', '$timeout', 'factoryOffset', function ($compile, $templateCache, constantCalendar, $timeout, factoryOffset) {
 	//function formatMonth(date, _after, _before) {
 	function formatMonth(date, params) {
-
-
 		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
 		var afterValue = params.after.getTime();
 		var beforeValue = params.before.getTime();
@@ -82,13 +80,14 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			viewMonths: '@viewMonths',
 			formatDate: '@formatDate',
 			maxDate: '=',
-			minDate:'='
+			minDate:'=',
+			startWeek: '@'
 		},
 		controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
 			var link = $scope.link == 'true' ? true : false;
 			$scope.viewMonths = parseFloat($scope.viewMonths) || 3;
 			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
-
+			this.startWeek = $scope.startWeek;
 
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
@@ -255,6 +254,5 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 
 		}
-
 	}
 }])
