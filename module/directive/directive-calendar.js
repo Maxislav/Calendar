@@ -252,6 +252,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				}
 				$scope.show = !$scope.show
 			}
+
+
 		}
 
 	}
