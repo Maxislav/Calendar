@@ -7,7 +7,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		var afterValue = params.after.getTime();
 		var beforeValue = params.before.getTime();
 		var maxDate = params.maxDate || null;
-
+		var minDate = params.minDate || null;
 		function checkCurrentDate(d) {
 			var value = ''
 			if (dateNowValue == d.getTime()) {
@@ -20,12 +20,15 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			if (getBlocked(d)) {
 				value += ' blocked'
 			}
-
 			return value
 		}
 
 		function getBlocked(d) {
 			if (maxDate && maxDate.getTime() < d.getTime()) {
+				return true
+			}
+
+			if (minDate && d.getTime() < minDate.getTime() ){
 				return true
 			}
 			return false
@@ -78,7 +81,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			link: '@link',
 			viewMonths: '@viewMonths',
 			formatDate: '@formatDate',
-			maxDate: '=maxDate'
+			maxDate: '=',
+			minDate:'='
 		},
 		controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
 			var link = $scope.link == 'true' ? true : false;
@@ -121,7 +125,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 						formatMonth: formatMonth(d, {
 							after: $scope.afterLabelValue,
 							before: $scope.beforeLabelValue,
-							maxDate: $scope.maxDate
+							maxDate: $scope.maxDate,
+							minDate: $scope.minDate
 						}),
 						value: d.getTime(),
 						btnBack: btnBack,
@@ -187,7 +192,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				render(currentViewDate)
 			})
 
-			$scope.$watchCollection('[beforeLabelValue,afterLabelValue,maxDate]',
+			$scope.$watchCollection('[beforeLabelValue,afterLabelValue,maxDate, minDate]',
 				function () {
 					render(currentViewDate)
 				})
