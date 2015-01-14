@@ -128,6 +128,12 @@ $radius: 3px;
         background: rgba(132, 157, 211, 0.65);
       }
     }
+    .blocked{
+      color: #a0b0c6;
+      .red{
+        color: #b59ca3;
+      }
+    }
 
   }
   .days{
@@ -166,7 +172,8 @@ $radius: 3px;
   }
   .info-label {
 
-    width: 50%;
+   // width: 50%;
+    display: inline-block;
     margin: 8px auto;
     .info-label-value {
       padding: 5px 10px;

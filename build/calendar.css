@@ -99,6 +99,10 @@
     background: #b4c7df; }
     .calendar-label .calendar-view .numeric .select:hover {
       background: rgba(132, 157, 211, 0.65); }
+  .calendar-label .calendar-view .numeric .blocked {
+    color: #a0b0c6; }
+    .calendar-label .calendar-view .numeric .blocked .red {
+      color: #b59ca3; }
   .calendar-label .calendar-view .days {
     border-bottom: 1px solid #E0E0E0; }
   .calendar-label .calendar-view .border-line {
@@ -123,7 +127,7 @@
   .calendar-label .calendar-view table td {
     vertical-align: top; }
   .calendar-label .calendar-view .info-label {
-    width: 50%;
+    display: inline-block;
     margin: 8px auto; }
     .calendar-label .calendar-view .info-label .info-label-value {
       padding: 5px 10px;

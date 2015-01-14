@@ -13,19 +13,30 @@
     <script src="src/controllers/default-contrl.js"></script>
 </head>
 <body ng-controller="defaultContrl">
-    <div class="">
+    <div class="" style="margin-left: 300px">
         <h2>Календарь1</h2>
+        <calendar before="before" after="after" link="false"  view-months="1" format-date="dd.MM">
+
+        </calendar>
     </div>
 
-    <calendar before="before" after="after" link="false" min-date="" view-months="1" format-date="dd.MM.yyyy">
 
-    </calendar>
-    <div class="">
+    <div class="" style="margin-left: 150px">
         <h2>Календарь2</h2>
-    </div>
-    <calendar before="before" after="after" link="true" view-months="5">
+        <calendar before="before" after="after" link="true" view-months="3">
 
-    </calendar>
+        </calendar>
+    </div>
+
+
+    <div class="" >
+        <h2>Календарь3</h2>
+        <calendar before="before" after="after" link="true" view-months="5" max-date="maxDate"  format-date="dd.MM.yyyy">
+
+        </calendar>
+    </div>
+
+
 
 </body>
 </html>

@@ -1,232 +1,253 @@
 calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar', '$timeout', 'factoryOffset', function ($compile, $templateCache, constantCalendar, $timeout, factoryOffset) {
-    function formatMonth(date, _after, _before) {
-        var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
-        var afterValue = _after.getTime();
-        var beforeValue = _before.getTime();
-
-        function checkCurrentDate(d) {
-            var value = ''
-            if (dateNowValue == d.getTime()) {
-                value += 'current'
-            }
-            if (afterValue <= d.getTime() && d.getTime() <= beforeValue) {
-                value += ' select'
-            }
-
-            return value
-        }
-
-        var array = [];
-        for (var i = 0; i < 50; i++) {
-            var d = new Date(date.getFullYear(), date.getMonth(), i)
-            if (d.getMonth() == date.getMonth()) {
-                array.push({
-                    date: d,
-                    value: d.getTime(),
-                    dayWeek: d.getDay(),
-                    class: checkCurrentDate(d)
-                })
-            }
-        }
-        var fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
-        var fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
-        for (var i = 0; i < fillBefore; i++) {
-            array.unshift(null)
-        }
-        for (var i = 0; i < fillAfter; i++) {
-            array.push(null)
-        }
-
-        var rows = parseFloat((array.length / 7).toFixed(0));
-        var arrMonth = [];
-        var k = 0
-        for (var i = 0; i < rows; i++) {
-            arrMonth[i] = [];
-            for (var d = 0; d < 7; d++) {
-                arrMonth[i].push(array[k])
-                k++;
-            }
-
-        }
-        return arrMonth
-    }
+	//function formatMonth(date, _after, _before) {
+	function formatMonth(date, params) {
 
 
-    return {
-        restrict: 'EA',
-        replace: true,
-        templateUrl: 'module/partials/calendar-label.html',
-        scope: {
-            before: '=before',
-            after: '=after',
-            link: '@link',
-            viewMonths: '@viewMonths',
-			formatDate: '@formatDate'
-        },
-        controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
-            var link = $scope.link == 'true' ? true : false;
-            $scope.viewMonths = parseFloat($scope.viewMonths) || 3;
-			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd'
+		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+		var afterValue = params.after.getTime();
+		var beforeValue = params.before.getTime();
+		var maxDate = params.maxDate || null;
+
+		function checkCurrentDate(d) {
+			var value = ''
+			if (dateNowValue == d.getTime()) {
+				value += 'current'
+			}
+			if (afterValue <= d.getTime() && d.getTime() <= beforeValue) {
+				value += ' select'
+			}
+
+			if (getBlocked(d)) {
+				value += ' blocked'
+			}
+
+			return value
+		}
+
+		function getBlocked(d) {
+			if (maxDate && maxDate.getTime() < d.getTime()) {
+				return true
+			}
+			return false
+		}
+
+		var array = [];
+		for (var i = 0; i < 50; i++) {
+			var d = new Date(date.getFullYear(), date.getMonth(), i)
+			if (d.getMonth() == date.getMonth()) {
+				array.push({
+					date: d,
+					value: d.getTime(),
+					dayWeek: d.getDay(),
+					blocked: getBlocked(d),
+					class: checkCurrentDate(d)
+				})
+			}
+		}
+		var fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
+		var fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
+		for (var i = 0; i < fillBefore; i++) {
+			array.unshift(null)
+		}
+		for (var i = 0; i < fillAfter; i++) {
+			array.push(null)
+		}
+
+		var rows = parseFloat((array.length / 7).toFixed(0));
+		var arrMonth = [];
+		var k = 0
+		for (var i = 0; i < rows; i++) {
+			arrMonth[i] = [];
+			for (var d = 0; d < 7; d++) {
+				arrMonth[i].push(array[k])
+				k++;
+			}
+
+		}
+		return arrMonth
+	}
 
 
-            console.log($scope.formatDate)
+	return {
+		restrict: 'EA',
+		replace: true,
+		templateUrl: 'module/partials/calendar-label.html',
+		scope: {
+			before: '=before',
+			after: '=after',
+			link: '@link',
+			viewMonths: '@viewMonths',
+			formatDate: '@formatDate',
+			maxDate: '=maxDate'
+		},
+		controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
+			var link = $scope.link == 'true' ? true : false;
+			$scope.viewMonths = parseFloat($scope.viewMonths) || 3;
+			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
 
-            $scope.show = false;
-            $scope.constantCalendar = constantCalendar;
 
-            $scope.months = [];
+			$scope.show = false;
+			$scope.constantCalendar = constantCalendar;
 
-            $scope.beforeLabelValue = $scope.before;
-            $scope.afterLabelValue = $scope.after;
+			$scope.months = [];
 
-            var currentViewDate = new Date( $scope.afterLabelValue.getTime() + (($scope.beforeLabelValue.getTime() -  $scope.afterLabelValue.getTime()) / 2));   // $scope.date;
-            var previousMonth, nextMonth;
-            $scope.includeMonths = 'module/partials/container-months.html'
+			$scope.beforeLabelValue = $scope.before;
+			$scope.afterLabelValue = $scope.after;
 
-            function render(date) {
-                previousMonth = new Date(date.getFullYear(), date.getMonth() - 1, date.getDate())
-                nextMonth = new Date(date.getFullYear(), date.getMonth() + 1, date.getDate());
+			var currentViewDate = new Date($scope.afterLabelValue.getTime() + (($scope.beforeLabelValue.getTime() - $scope.afterLabelValue.getTime()) / 2));   // $scope.date;
 
+			$scope.includeMonths = 'module/partials/container-months.html'
 
-                function getdate(i){
-                   var k = (-1*Math.ceil($scope.viewMonths/2)) +i+1;
-                    return new Date(date.getFullYear(), date.getMonth() + k, date.getDate());
+			function render(date) {
 
-                }
-                for(var i=0; i<$scope.viewMonths; i++){
-                    var d = getdate(i);
-                    var btnBack = false, btnForward= false;
-					if(i===0){
+				function getdate(i) {
+					var k = (-1 * Math.ceil($scope.viewMonths / 2)) + i + 1;
+					return new Date(date.getFullYear(), date.getMonth() + k, date.getDate());
+
+				}
+
+				for (var i = 0; i < $scope.viewMonths; i++) {
+					var d = getdate(i);
+					var btnBack = false, btnForward = false;
+					if (i === 0) {
 						btnBack = true
 					}
-					if(i === $scope.viewMonths-1){
+					if (i === $scope.viewMonths - 1) {
 						btnForward = true
 					}
-                    $scope.months[i] = {
-                        formatMonth: formatMonth(d,  $scope.afterLabelValue, $scope.beforeLabelValue),
-                        value: d.getTime(),
+
+
+					$scope.months[i] = {
+						formatMonth: formatMonth(d, {
+							after: $scope.afterLabelValue,
+							before: $scope.beforeLabelValue,
+							maxDate: $scope.maxDate
+						}),
+						value: d.getTime(),
 						btnBack: btnBack,
-						btnForward:btnForward
-                    };
-                }
-            }
+						btnForward: btnForward
+					};
+				}
+			}
 
-            render(currentViewDate);
+			render(currentViewDate);
 
-            $scope.stepBack = function () {
-                var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, currentViewDate.getDate())
-                currentViewDate = date;
-                render(date);
-            }
-            $scope.stepForward = function () {
+			$scope.stepBack = function () {
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, currentViewDate.getDate())
+				currentViewDate = date;
+				render(date);
+			}
+			$scope.stepForward = function () {
 
-                var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() + 1, currentViewDate.getDate())
-                currentViewDate = date;
-                render(date)
+				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() + 1, currentViewDate.getDate())
+				currentViewDate = date;
+				render(date)
 
-            }
-            $scope.selectEvent = function (day) {
-                if ($scope.beforeLabelValue.getTime() < day.value) {
-                    $scope.beforeLabelValue = new Date(day.value)
-                    link && ( $scope.before =  $scope.beforeLabelValue );
-                } else if (day.value <  $scope.afterLabelValue.getTime()) {
-                     $scope.afterLabelValue = new Date(day.value);
-                    link &&  ($scope.after = $scope.afterLabelValue );
-                } else {
-                    $scope.afterLabelValue = new Date(day.value)
-                    $scope.beforeLabelValue = new Date(day.value)
+			}
+			$scope.selectEvent = function (day) {
+				if (!day || day.blocked) {
+					return
+				}
 
-                    if (link) {
-                        $scope.before =  $scope.beforeLabelValue;
-                        $scope.after = $scope.afterLabelValue;
-                    }
-                }
-            }
+				if ($scope.beforeLabelValue.getTime() < day.value) {
+					$scope.beforeLabelValue = new Date(day.value)
+					link && ( $scope.before = $scope.beforeLabelValue );
+				} else if (day.value < $scope.afterLabelValue.getTime()) {
+					$scope.afterLabelValue = new Date(day.value);
+					link && ($scope.after = $scope.afterLabelValue );
+				} else {
+					$scope.afterLabelValue = new Date(day.value)
+					$scope.beforeLabelValue = new Date(day.value)
 
-            $scope.apply = function () {
-                $scope.before =  $scope.beforeLabelValue;
-                $scope.after = $scope.afterLabelValue;
-                $scope.click();
-            }
+					if (link) {
+						$scope.before = $scope.beforeLabelValue;
+						$scope.after = $scope.afterLabelValue;
+					}
+				}
+			}
 
-            $scope.$watch('before', function (val) {
-                if(val != $scope.beforeLabelValue){
-                    $scope.beforeLabelValue = val;
-                }
-                render(currentViewDate)
-            })
-            $scope.$watch('beforeLabelValue', function () {
-                render(currentViewDate)
-            })
+			$scope.apply = function () {
+				$scope.before = $scope.beforeLabelValue;
+				$scope.after = $scope.afterLabelValue;
+				$scope.click();
+			}
+
+			$scope.$watch('before', function (val) {
+				if (val != $scope.beforeLabelValue) {
+					$scope.beforeLabelValue = val;
+				}
+				render(currentViewDate)
+			})
 
 
+			$scope.$watch('after', function (val) {
+				if (val != $scope.afterLabelValue) {
+					$scope.afterLabelValue = val;
+				}
+				render(currentViewDate)
+			})
 
-            $scope.$watch('after', function (val) {
-                if(val != $scope.afterLabelValue){
-                    $scope.afterLabelValue = val;
-                }
-                render(currentViewDate)
-            })
-            $scope.$watch('afterLabelValue', function () {
-                render(currentViewDate)
-            })
+			$scope.$watchCollection('[beforeLabelValue,afterLabelValue,maxDate]',
+				function () {
+					render(currentViewDate)
+				})
 
-            function listen(e) {
-                var val = false;
-                angular.forEach($element.find('*'), function (el) {
-                    if (el== e.target) {
-                        val = true
-                        return
-                    }
-                })
-                if (!val) {
-                    ($scope.show = false)
-                    $scope.$apply()
-                }
-            }
+			function listen(e) {
+				var val = false;
+				angular.forEach($element.find('*'), function (el) {
+					if (el == e.target) {
+						val = true
+						return
+					}
+				})
+				if (!val) {
+					($scope.show = false)
+					$scope.$apply()
+				}
+			}
 
-            function cleanup() {
-                window.document.removeEventListener('click', listen);
-            }
+			function cleanup() {
+				window.document.removeEventListener('click', listen);
+			}
 
-            $scope.$watch('show', function (val, newVal) {
-                if (val) {
-                    window.document.addEventListener('click', listen);
-                } else {
-                    $scope.beforeLabelValue = $scope.before;
-                    $scope.afterLabelValue = $scope.after;
-                    window.document.removeEventListener('click', listen);
-                }
-            });
-            $scope.$on('$destroy', function () {
-                console.log("destroy");
-                cleanup();
-            });
-        }],
-        link: function ($scope, $element) {
-            var content = null;
-            $scope.show = false;
-            $scope.content;
-            function init() {
-                var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
-                $scope.content = content = linkFn($scope);
+			$scope.$watch('show', function (val, newVal) {
+				if (val) {
+					window.document.addEventListener('click', listen);
+				} else {
+					$scope.beforeLabelValue = $scope.before;
+					$scope.afterLabelValue = $scope.after;
+					window.document.removeEventListener('click', listen);
+				}
+			});
+			$scope.$on('$destroy', function () {
+				console.log("destroy");
+				cleanup();
+			});
+		}],
+		link: function ($scope, $element) {
+			var content = null;
+			$scope.show = false;
+			$scope.content;
+			function init() {
+				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
+				$scope.content = content = linkFn($scope);
 
-                content.css('display', 'none')
-                $element.append(content);
-                $timeout(function () {
-                    $scope.show = true
-                    content.css('display', 'inherit')
-                }, 1)
-            }
+				content.css('display', 'none')
+				$element.append(content);
+				$timeout(function () {
+					$scope.show = true
+					content.css('display', 'inherit')
+				}, 1)
+			}
 
-            $scope.click = function () {
-                if (!content) {
-                    init()
-                    return
-                }
-                $scope.show = !$scope.show
-            }
-        }
+			$scope.click = function () {
+				if (!content) {
+					init()
+					return
+				}
+				$scope.show = !$scope.show
+			}
+		}
 
-    }
+	}
 }])
