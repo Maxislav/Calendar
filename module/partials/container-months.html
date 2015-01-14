@@ -5,8 +5,13 @@
             <div class="block-month">
                 <daysweek>
                 </daysweek>
-                <div class="border-line" ng-include="month.btn">
-
+                <div class="border-line" >
+                    <div class="btn-back" ng-click="stepBack()" ng-if="month.btnBack">
+                        &#8249;
+                    </div>
+                    <div class="btn-forward" ng-click="stepForward()" ng-if="month.btnForward">
+                        &#8250;
+                    </div>
                 </div>
                 <div class="row name-month">
                     {{month.value | date:'MMMM yyyy'}}

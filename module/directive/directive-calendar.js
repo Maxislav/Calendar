@@ -93,29 +93,20 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                     return new Date(date.getFullYear(), date.getMonth() + k, date.getDate());
 
                 }
-
-
                 for(var i=0; i<$scope.viewMonths; i++){
-
                     var d = getdate(i);
-                    var btn;
-                    switch (i){
-                        case 0:
-                            btn = 'module/partials/btn-back.html' ;
-                            break;
-                        case $scope.viewMonths-1:
-                            btn = 'module/partials/btn-forward.html'
-                            break;
-                        default :
-                            btn = null
-
-
-                    }
-
+                    var btnBack = false, btnForward= false;
+					if(i===0){
+						btnBack = true
+					}
+					if(i === $scope.viewMonths-1){
+						btnForward = true
+					}
                     $scope.months[i] = {
                         formatMonth: formatMonth(d,  $scope.afterLabelValue, $scope.beforeLabelValue),
                         value: d.getTime(),
-                        btn: btn
+						btnBack: btnBack,
+						btnForward:btnForward
                     };
                 }
             }
