@@ -48,7 +48,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
             }
 
         }
-        //  console.log(arrMonth)
         return arrMonth
     }
 
@@ -61,12 +60,16 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
             before: '=before',
             after: '=after',
             link: '@link',
-            viewMonths: '@viewMonths'
+            viewMonths: '@viewMonths',
+			formatDate: '@formatDate'
         },
         controller: ['$scope', '$element', '$attrs', '$timeout', '$templateCache', function ($scope, $element, $attrs, $timeout, $templateCache) {
             var link = $scope.link == 'true' ? true : false;
             $scope.viewMonths = parseFloat($scope.viewMonths) || 3;
-            console.log($scope.viewMonths)
+			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd'
+
+
+            console.log($scope.formatDate)
 
             $scope.show = false;
             $scope.constantCalendar = constantCalendar;
@@ -115,26 +118,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                         btn: btn
                     };
                 }
-
-
-                /*$scope.months[0] = {
-                    formatMonth: formatMonth(previousMonth,  $scope.afterLabelValue, $scope.beforeLabelValue),
-                    value: previousMonth.getTime(),
-                    btn: 'module/partials/btn-back.html'
-                };
-
-                $scope.months[1] = {
-                    formatMonth: formatMonth(date,  $scope.afterLabelValue, $scope.beforeLabelValue),
-                    value: date.getTime(),
-                    btn: null
-                }
-
-
-                $scope.months[2] = {
-                    formatMonth: formatMonth(nextMonth,  $scope.afterLabelValue, $scope.beforeLabelValue),
-                    value: nextMonth.getTime(),
-                    btn: 'module/partials/btn-forward.html'
-                }*/
             }
 
             render(currentViewDate);
@@ -185,13 +168,15 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
                 render(currentViewDate)
             })
 
+
+
             $scope.$watch('after', function (val) {
                 if(val != $scope.afterLabelValue){
                     $scope.afterLabelValue = val;
                 }
                 render(currentViewDate)
             })
-            $scope.$watch('after', function () {
+            $scope.$watch('afterLabelValue', function () {
                 render(currentViewDate)
             })
 
