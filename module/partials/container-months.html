@@ -20,11 +20,11 @@
                     <div class="row" ng-repeat="week in month.formatMonth track by $index">
                         <div class="col-day  text-right {{day.class}}"
                              ng-repeat="day in month.formatMonth[$index] track by $index" ng-click="selectEvent(day)">
-                     <span ng-switch="$index">
+                     <span ng-switch="day.dayWeek">
                         <span ng-switch-when="6" class="red">
                            {{day.value | date:'d'}}
                         </span>
-                       <span ng-switch-when="5" class="red">
+                       <span ng-switch-when="0" class="red">
                            {{day.value | date:'d'}}
                         </span>
                          <span ng-switch-default>

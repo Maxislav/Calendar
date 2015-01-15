@@ -6,6 +6,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		var beforeValue = params.before.getTime();
 		var maxDate = params.maxDate || null;
 		var minDate = params.minDate || null;
+        var startWeek = params.startWeek || 0;
+
 		function checkCurrentDate(d) {
 			var value = ''
 			if (dateNowValue == d.getTime()) {
@@ -45,8 +47,23 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				})
 			}
 		}
-		var fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
-		var fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
+		var fillBefore,fillAfter;
+
+
+        if(startWeek == 1){
+            fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
+            fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
+        }else{
+            fillBefore =  array[0].dayWeek ;
+            fillAfter =  6 - array[array.length - 1].dayWeek;
+        }
+
+
+
+        console.log(fillBefore)
+
+
+
 		for (var i = 0; i < fillBefore; i++) {
 			array.unshift(null)
 		}
@@ -87,8 +104,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			var link = $scope.link == 'true' ? true : false;
 			$scope.viewMonths = parseFloat($scope.viewMonths) || 3;
 			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
-			this.startWeek = $scope.startWeek;
 
+            this.startWeek =   $scope.startWeek = parseFloat($scope.startWeek);
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
 
@@ -125,7 +142,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 							after: $scope.afterLabelValue,
 							before: $scope.beforeLabelValue,
 							maxDate: $scope.maxDate,
-							minDate: $scope.minDate
+							minDate: $scope.minDate,
+                            startWeek: $scope.startWeek
 						}),
 						value: d.getTime(),
 						btnBack: btnBack,
