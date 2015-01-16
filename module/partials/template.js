@@ -2,7 +2,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
   'use strict';
 
   $templateCache.put('module/partials/calendar-days.html',
-    "<div class=\"row days\"><div class=\"col-day text-right\" ng-repeat=\"days in constantCalendar.days track by $index\"><span ng-switch=\"$index\"><span ng-switch-when=\"6\" class=\"red\">{{days}}</span> <span ng-switch-when=\"5\" class=\"red\">{{days}}</span> <span ng-switch-default>{{days}}</span></span></div></div>"
+    "<div class=\"row days\"><div class=\"col-day text-right\" ng-repeat=\"day in days track by $index\"><span ng-switch=\"day.n\"><span ng-switch-when=\"0\" class=\"red\">{{day.text}}</span> <span ng-switch-when=\"6\" class=\"red\">{{day.text}}</span> <span ng-switch-default>{{day.text}}</span></span></div></div>"
   );
 
 

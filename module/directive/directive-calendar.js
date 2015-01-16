@@ -6,7 +6,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 		var beforeValue = params.before.getTime();
 		var maxDate = params.maxDate || null;
 		var minDate = params.minDate || null;
-        var startWeek = params.startWeek || 0;
+        var startWeek = params.startWeek || 1;
 
 		function checkCurrentDate(d) {
 			var value = ''
@@ -48,22 +48,14 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			}
 		}
 		var fillBefore,fillAfter;
-
-
-        if(startWeek == 1){
-            fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
-            fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
-        }else{
+      //  console.log(startWeek)
+        if(startWeek == 0){
             fillBefore =  array[0].dayWeek ;
             fillAfter =  6 - array[array.length - 1].dayWeek;
+        }else{
+            fillBefore = (array[0].dayWeek == 0) ? 6 : array[0].dayWeek - 1;
+            fillAfter = (array[array.length - 1].dayWeek == 0) ? 0 : 7 - array[array.length - 1].dayWeek;
         }
-
-
-
-        console.log(fillBefore)
-
-
-
 		for (var i = 0; i < fillBefore; i++) {
 			array.unshift(null)
 		}
@@ -73,7 +65,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 		var rows = parseFloat((array.length / 7).toFixed(0));
 		var arrMonth = [];
-		var k = 0
+		var k = 0;
 		for (var i = 0; i < rows; i++) {
 			arrMonth[i] = [];
 			for (var d = 0; d < 7; d++) {
@@ -104,13 +96,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			var link = $scope.link == 'true' ? true : false;
 			$scope.viewMonths = parseFloat($scope.viewMonths) || 3;
 			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
-
             this.startWeek =   $scope.startWeek = parseFloat($scope.startWeek);
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
-
 			$scope.months = [];
-
 			$scope.beforeLabelValue = $scope.before;
 			$scope.afterLabelValue = $scope.after;
 

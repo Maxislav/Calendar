@@ -1,4 +1,4 @@
-app.controller('defaultContrl', ['$scope', '$interval', '$timeout',function($scope, $interval, $timeout){
+app.controller('defaultContrl', ['$scope', '$interval', '$timeout','factoryOffset',function($scope, $interval, $timeout, factoryOffset){
 	var date = new Date();
 
 	var d = new Date()
@@ -11,6 +11,8 @@ app.controller('defaultContrl', ['$scope', '$interval', '$timeout',function($sco
 	/*$timeout(function(){
 		$scope.maxDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()+7);
 	}, 5000)*/
+
+
 
 
 
