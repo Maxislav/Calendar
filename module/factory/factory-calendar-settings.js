@@ -1,3 +1,10 @@
-/**
- * Created by mars on 16.01.15.
- */
+angular
+    .module('calendarModule')
+    .factory('calendarSettings', function(){
+        var params = {
+            config: {
+                labelTemlate: "{{after | date:'dd MMM'}} - {{before | date:'dd MMM'}} {{before | date:'yy'}}"
+            }
+        }
+        return params
+    });
