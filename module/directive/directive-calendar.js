@@ -2,8 +2,9 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 	//function formatMonth(date, _after, _before) {
 	function formatMonth(date, params) {
 		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
-		var afterValue = params.after.getTime();
-		var beforeValue = params.before.getTime();
+
+        var afterValue = params.after ?  params.after.getTime() : null;
+		var beforeValue =  params.before ?  params.before.getTime() : null;
 		var maxDate = params.maxDate || null;
 		var minDate = params.minDate || null;
         var startWeek = params.startWeek || 1;
@@ -100,8 +101,8 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
 			$scope.months = [];
-			$scope.beforeLabelValue = $scope.before;
-			$scope.afterLabelValue = $scope.after;
+			$scope.beforeLabelValue = $scope.before || new Date();
+			$scope.afterLabelValue = $scope.after || new Date();
 
 			var currentViewDate = new Date($scope.afterLabelValue.getTime() + (($scope.beforeLabelValue.getTime() - $scope.afterLabelValue.getTime()) / 2));   // $scope.date;
 
