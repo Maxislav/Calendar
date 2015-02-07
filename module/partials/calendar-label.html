@@ -4,7 +4,7 @@
             &nbsp;
         </div>
     </div>
-    <div class="calendar-label-btn" ng-class="show && 'open'">
+    <div class="calendar-label-btn" ng-class="show && 'open'" ng-click="click()">
         {{after | date:'dd MMM'}} - {{beforeLabelValue | date:'dd MMM'}} {{before | date:'yyyy'}}
     </div>
 </div>
