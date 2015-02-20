@@ -215,7 +215,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.$on('$destroy', function () {
                 $scope.show = false;
                 console.log("destroy");
-                $scope.calendarElement[0].parentNode.removeChild($scope.calendarElement[0]);
+                $scope.calendarElement && $scope.calendarElement[0].parentNode.removeChild($scope.calendarElement[0]);
                 cleanup();
 			});
 		}],
