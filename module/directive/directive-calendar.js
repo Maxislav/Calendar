@@ -213,13 +213,16 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				}
 			});
 			$scope.$on('$destroy', function () {
-				console.log("destroy");
-				cleanup();
+                $scope.show = false;
+                console.log("destroy");
+                $scope.calendarElement[0].parentNode.removeChild($scope.calendarElement[0]);
+                cleanup();
 			});
 		}],
 		link: function ($scope, $element) {
 			var content = null;
 			$scope.show = false;
+            $scope.content;
 			function init() {
 				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
 				content = linkFn($scope);
@@ -230,8 +233,6 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				$timeout(function(){
 					$scope.show = true;
 					content.css('display','inherit');
-
-
                     content.css('left', factoryPosition($element[0]).x+100+'px' )
                     content.css('top', factoryPosition($element[0]).y+25+'px' )
 
