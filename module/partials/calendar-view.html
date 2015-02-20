@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="info-block">
-        <div class="info-label">
+        <div class="info-label" ng-if="!exact">
             <div class="">
                 <div class="info-label-value">
                     {{ after  | date:'yyyy.MM.dd' }}
@@ -20,7 +20,18 @@
                 <div class="button" ng-click="apply()">
                     Close
                 </div>
-
+            </div>
+        </div>
+        <div class="info-label" ng-if="exact">
+            <div class="">
+                <div class="info-label-value">
+                    {{ exact  | date:'dd.MM.yyyy' }}
+                </div>
+            </div>
+            <div>
+                <div class="button" ng-click="apply()">
+                    Close
+                </div>
             </div>
         </div>
     </div>

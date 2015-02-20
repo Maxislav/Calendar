@@ -8,4 +8,7 @@ app.controller('defaultContrl', ['$scope', '$interval',function($scope, $interva
 	var d = new Date()
 	$scope.after = new Date(d.getFullYear(), d.getMonth(), d.getDate()-4)
 
-}])
+	$scope.exact = new Date();
+
+}]);
+

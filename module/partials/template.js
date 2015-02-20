@@ -7,12 +7,12 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-label.html',
-    "<div class=\"calendar-label\"><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\" ng-click=\"click()\">{{after | date:'dd MMM'}} - {{beforeLabelValue | date:'dd MMM'}} {{before | date:'yyyy'}}</div></div>"
+    "<div class=\"calendar-label\"><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\" ng-click=\"click()\" ng-if=\"!exact\">{{after | date:'dd MMM'}} - {{beforeLabelValue | date:'dd MMM'}} {{before | date:'yyyy'}}</div><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\" ng-click=\"click()\" ng-if=\"exact\">{{exact | date:'dd MMMM yyyy'}}</div></div>"
   );
 
 
   $templateCache.put('module/partials/calendar-view.html',
-    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\"><div class=\"\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div><div class=\"button\" ng-click=\"apply()\">Close</div></div></div></div></div>"
+    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\" ng-if=\"!exact\"><div class=\"\"><div class=\"info-label-value\">{{ after | date:'yyyy.MM.dd' }}</div></div><div><div class=\"info-label-value\">{{ before | date:'yyyy.MM.dd' }}</div></div><div><div class=\"button\" ng-click=\"apply()\">Close</div></div></div><div class=\"info-label\" ng-if=\"exact\"><div class=\"\"><div class=\"info-label-value\">{{ exact | date:'dd.MM.yyyy' }}</div></div><div><div class=\"button\" ng-click=\"apply()\">Close</div></div></div></div></div>"
   );
 
 
