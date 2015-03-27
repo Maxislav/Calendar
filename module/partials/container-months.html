@@ -2,7 +2,7 @@
     <tr>
         <td ng-repeat="month in months track by $index">
             <div class="block-month">
-                <daysweek>
+                <daysweek start-week={{startWeek}}>
                 </daysweek>
                 <div class="border-line" >
                     <div class="btn-back" ng-click="stepBack()" ng-if="month.btnBack">

@@ -1,15 +1,16 @@
-calendarModule.directive('daysweek', ['$compile', 'constantCalendar', function ($compile, constantCalendar) {
+calendarModule.directive('daysweek', ['$compile', 'constantCalendar','serviceDaysWeek', function ($compile, constantCalendar, serviceDaysWeek) {
     return{
         restrict: 'E',
         replace: true,
-        scope: {},
-        require: '^calendar',
+        scope: {
+            startWeek:"@"
+        },
+        //require: '^calendar',
         templateUrl: 'module/partials/calendar-days.html',
         link: function ($scope, $element, $attr, $contrl) {
             $scope.days = [];
-
-            if ($contrl.startWeek == 0) {
-
+            //console.log($scope.startWeek);
+            if ($scope.startWeek == 0) {
                 for (var i = 1; i<constantCalendar.days.length; i++) {
                     $scope.days.push({
                         text: constantCalendar.days[i],

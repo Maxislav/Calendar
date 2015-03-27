@@ -1,4 +1,5 @@
-calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar', '$timeout', 'factoryOffset', function ($compile, $templateCache, constantCalendar, $timeout, factoryOffset) {
+calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCalendar', '$timeout', 'factoryPosition','serviceDaysWeek',
+	function ($compile, $templateCache, constantCalendar, $timeout, factoryPosition, serviceDaysWeek) {
 	//function formatMonth(date, _after, _before) {
 	function formatMonth(date, params) {
 		var dateNowValue = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
@@ -97,7 +98,12 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			var link = $scope.link == 'true' ? true : false;
 			$scope.viewMonths = parseFloat($scope.viewMonths) || 3;
 			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
-            this.startWeek =   $scope.startWeek = parseFloat($scope.startWeek);
+			//$scope.serviceDaysWeek = serviceDaysWeek;
+			//serviceDaysWeek.startWeek =  $scope.startWeek;
+			console.log($scope.startWeek)
+			//$scope.serviceDaysWeek.startWeek =  $scope.startWeek;
+            //this.startWeek =   $scope.startWeek = parseFloat($scope.startWeek);
+
 			$scope.show = false;
 			$scope.constantCalendar = constantCalendar;
 			$scope.months = [];
@@ -205,24 +211,33 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 				})
 
 			function listen(e) {
-				var val = false;
-				angular.forEach($element.find('*'), function (el) {
-					if (el == e.target) {
-						val = true
-						return
+				var val = false
+				angular.forEach($scope.calendarElement.find('*'), function (el) {
+					//if ( angular.equals(angular.element(el), angular.element(e.target))   ) {
+					if ( el == e.target  ) {
+						val = true;
+						return;
 					}
-				})
+				});
+
+				if(!val){
+					angular.forEach($element.find('*'), function (el) {
+						if (  el == e.target ) {
+							val = true;
+							return;
+						}
+					})
+				}
 				if (!val) {
 					($scope.show = false)
 					$scope.$apply()
 				}
 			}
-
 			function cleanup() {
 				window.document.removeEventListener('click', listen);
 			}
 
-			$scope.$watch('show', function (val, newVal) {
+			/*$scope.$watch('show', function (val, newVal) {
 				if (val) {
 					window.document.addEventListener('click', listen);
 				} else {
@@ -234,7 +249,22 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.$on('$destroy', function () {
 				console.log("destroy");
 				cleanup();
+			});*/
+
+			$scope.$watch('show', function (val, newVal) {
+				if (val) {
+					window.document.addEventListener('click', listen)
+				} else {
+					window.document.removeEventListener('click', listen);
+				}
 			});
+			$scope.$on('$destroy', function () {
+				$scope.show = false;
+				console.log("destroy");
+				$scope.calendarElement && $scope.calendarElement[0].parentNode.removeChild($scope.calendarElement[0]);
+				cleanup();
+			});
+
 		}],
 		link: function ($scope, $element) {
 			var content = null;
@@ -242,14 +272,18 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.content;
 			function init() {
 				var linkFn = $compile($templateCache.get('module/partials/calendar-view.html'));
-				$scope.content = content = linkFn($scope);
+				content = linkFn($scope);
+				content.css('display','none')
+				var body  =  angular.element(document.body);
+				body.append(content);
+				$scope.calendarElement = content;
+				$timeout(function(){
+					$scope.show = true;
+					content.css('display','inherit');
+					content.css('left', factoryPosition($element[0]).x+100+'px' )
+					content.css('top', factoryPosition($element[0]).y+25+'px' )
 
-				content.css('display', 'none')
-				$element.append(content);
-				$timeout(function () {
-					$scope.show = true
-					content.css('display', 'inherit')
-				}, 1)
+				},1)
 			}
 
 			$scope.click = function () {
