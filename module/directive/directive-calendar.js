@@ -100,7 +100,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			$scope.formatDate = $scope.formatDate || 'yyyy.MM.dd';
 			//$scope.serviceDaysWeek = serviceDaysWeek;
 			//serviceDaysWeek.startWeek =  $scope.startWeek;
-			console.log($scope.startWeek)
+			//console.log($scope.startWeek)
 			//$scope.serviceDaysWeek.startWeek =  $scope.startWeek;
             //this.startWeek =   $scope.startWeek = parseFloat($scope.startWeek);
 
@@ -118,7 +118,10 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 
 				function getdate(i) {
 					var k = (-1 * Math.ceil($scope.viewMonths / 2)) + i + 1;
-					return new Date(date.getFullYear(), date.getMonth() + k, date.getDate());
+
+					var retDate = new Date(date.getFullYear(), date.getMonth() + k);
+					//console.log(retDate)
+					return retDate;
 
 				}
 
@@ -149,19 +152,19 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			}
 
 			render(currentViewDate);
+			//console.log(currentViewDate)
 
 			$scope.stepBack = function () {
 				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() - 1, currentViewDate.getDate())
 				currentViewDate = date;
 				render(date);
-			}
+			};
 			$scope.stepForward = function () {
-
 				var date = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() + 1, currentViewDate.getDate())
 				currentViewDate = date;
 				render(date)
 
-			}
+			};
 			$scope.selectEvent = function (day) {
 				if (!day || day.blocked) {
 					return
@@ -260,7 +263,7 @@ calendarModule.directive('calendar', ['$compile', '$templateCache', 'constantCal
 			});
 			$scope.$on('$destroy', function () {
 				$scope.show = false;
-				console.log("destroy");
+				//console.log("destroy");
 				$scope.calendarElement && $scope.calendarElement[0].parentNode.removeChild($scope.calendarElement[0]);
 				cleanup();
 			});
