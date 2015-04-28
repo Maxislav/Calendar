@@ -6,6 +6,16 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
   );
 
 
+  $templateCache.put('module/partials/calendar-label-exact.html',
+    "<div class=\"calendar-label\"><div class=\"calendar-label-btn\" ng-class=\"show && 'open'\" ng-click=\"click()\"><div class=\"label-template-exact\"></div></div><div class=\"calendar-label-ico\" ng-click=\"click()\"><div class=\"ico-calendar\">&nbsp;</div></div></div>"
+  );
+
+
+  $templateCache.put('module/partials/calendar-label-template-exact.html',
+    "{{exact | date:'dd MMM yyyy'}}"
+  );
+
+
   $templateCache.put('module/partials/calendar-label-template.html',
     "{{after | date:'dd MMM'}} - {{before | date:'dd MMM'}} {{before | date:'yyyy'}}"
   );
@@ -17,7 +27,7 @@ angular.module('calendarModule').run(['$templateCache', function($templateCache)
 
 
   $templateCache.put('module/partials/calendar-view.html',
-    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:formatDate }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:formatDate }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"apply()\">Применить</div></div></div></div></div>"
+    "<div ng-show=\"show\" class=\"calendar-view\"><div class=\"container-months\"><div ng-include=\"includeMonths\"></div></div><div class=\"info-block\"><div class=\"info-label\" ng-if=\"!exact\"><div class=\"col-4\"><div class=\"info-label-value\">{{ after | date:formatDate }}</div></div><div class=\"col-4\"><div class=\"info-label-value\">{{ before | date:formatDate }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"apply()\">Применить</div></div></div><div class=\"info-label\" ng-if=\"exact\"><div class=\"col-8\"><div class=\"info-label-value\">{{ exact | date:formatDate }}</div></div><div class=\"col-4\"><div class=\"button\" ng-click=\"apply()\">Применить</div></div></div></div></div>"
   );
 
 

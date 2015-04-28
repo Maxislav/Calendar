@@ -2,8 +2,10 @@ app.controller('defaultContrl', ['$scope', '$interval', '$timeout','calendarSett
 	var date = new Date();
 	var d = new Date();
 	$scope.before = new Date(d.getFullYear(), d.getMonth(), d.getDate());
-	$scope.after = new Date(d.getFullYear(), d.getMonth(), d.getDate())
+	$scope.after = new Date(d.getFullYear(), d.getMonth(), d.getDate());
 	$scope.maxDate = new Date(d.getFullYear(), d.getMonth(), d.getDate()+5);
 	$scope.minDate = new Date(d.getFullYear(), d.getMonth()-2, d.getDate());
+
+    $scope.exact = new Date(d.getFullYear(), d.getMonth(), d.getDate()-5)
     calendarSettings.config.labelTemlate = "{{after | date:'dd MMM'}} - {{before | date:'dd MMM'}} {{before | date:'yyyy'}}";
 }])
